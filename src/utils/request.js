@@ -4,7 +4,7 @@
 import axios from "axios";
 const getCookie = (val) => {//获取x-csrf-token字段
     var arr,reg=new RegExp("(^| )"+val+"=([^;]*)(;|$)");
-    if(arr=document.cookie.match(reg))
+    if(arr===document.cookie.match(reg))
     return unescape(arr[2]);
     else
     return null;
@@ -21,7 +21,8 @@ axios.interceptors.request.use(
     config.data = JSON.stringify(config.data);
     config.headers = {
       "Content-Type": "application/json",
-      'x-csrf-token':  getCookie('csrfToken')
+      'x-csrf-token':  getCookie('csrfToken'),
+      'pikachu-token': JSON.parse(localStorage.getItem('pikachu-token')) 
     };
     return config;
   },
@@ -130,8 +131,7 @@ export function put(url, data = {}) {
 }
 
 //统一接口处理，返回数据
-export default function (fecth, url, param) {
-  let _data = "";
+ const  request =  (fecth, url, param) => {
   return new Promise((resolve, reject) => {
     switch (fecth) {
       case "get":
@@ -222,3 +222,5 @@ function landing(url, params, data) {
   if (data.code === -1) {
   }
 }
+
+export default request

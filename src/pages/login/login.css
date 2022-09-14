@@ -1,0 +1,23 @@
+.login-content{
+  height: 100%;
+  width: 100%;
+  background: url('../../../public/login_bgc.jpg') no-repeat;
+  display:flex;
+  /* justify-content: center;
+  align-items: center; */
+}
+.login-form{
+  margin: 30vh auto;
+}
+#normal-login {
+    max-width: 300px;
+  }
+  #normal-login .login-form-forgot {
+    float: right;
+  }
+  #normal-login .ant-col-rtl .login-form-forgot {
+    float: left;
+  }
+  #normal-login .login-form-button {
+    width: 100%;
+  }
