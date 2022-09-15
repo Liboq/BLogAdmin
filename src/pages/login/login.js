@@ -25,7 +25,7 @@ function Login(props) {
         console.log(res);
         message.success(res.message);
         navigate("/layout");
-        dispath(getUserToken(res.token))
+        dispath(getUserToken({token:res.token,userName:value.username}))
         localStorage.setItem("pikachu-token", JSON.stringify(res.token));
         console.log(state);
       } else {

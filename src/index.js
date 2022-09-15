@@ -8,7 +8,7 @@ import Login from './pages/login/login.js'
 import Regist from './pages/regist/regist.js'
 import { Provider } from 'react-redux'
 import configStore from './store/index.js'
-import Layout from './pages/layout'
+import Layout from './pages/layout/layout.js'
 import PrivateRoute from './privateRoute'
 const store = configStore()
 
