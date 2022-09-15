@@ -1,16 +1,22 @@
 .login-content{
   height: 100%;
   width: 100%;
-  background: url('../../../public/login_bgc.jpg') no-repeat;
+  background: url('../../../public/login_bgc.jpg') no-repeat ;
+  background-size:cover;
   display:flex;
-  /* justify-content: center;
-  align-items: center; */
+  justify-content: center;
+  align-items: center;
+  margin-right: 200px;
+  flex-direction: column;
+}
+.login-title{
+  color: gold;
 }
 .login-form{
-  margin: 30vh auto;
+  height: 350px;
 }
 #normal-login {
-    max-width: 300px;
+    min-width: 300px;
   }
   #normal-login .login-form-forgot {
     float: right;
