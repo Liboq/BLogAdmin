@@ -10,6 +10,7 @@ import { Provider } from 'react-redux'
 import configStore from './store/index.js'
 import Layout from './pages/layout/layout.js'
 import PrivateRoute from './privateRoute'
+import NotFund from './404'
 const store = configStore()
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
@@ -25,6 +26,7 @@ root.render(
        <Route element = {<PrivateRoute/>}>
         <Route path = '/layout' element={<Layout/>}></Route>
        </Route>
+       <Route path='*' element={<NotFund />}></Route>
        
      </Routes>
     </BrowserRouter>

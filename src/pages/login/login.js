@@ -5,7 +5,8 @@ import { Button, Checkbox, Form, Input, message } from "antd";
 import "./login.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import {useSelector,useDispatch} from 'react-redux'
-import { getUserToken } from "../../store/actions/user";
+import { getUserInfo, getUserToken } from "../../store/actions/user";
+import cookie from 'react-cookies'
 
 
 
@@ -15,7 +16,10 @@ function Login(props) {
     const dispath = useDispatch()
     console.log(state);
   let navigate = useNavigate();
+  
   const login = (value) => {
+    
+    let expires = new Date(new Date().getTime() + 60 * 60 * 1000);//15分钟
     const data = {
       userName: value.userName,
       password: value.password,
@@ -24,10 +28,13 @@ function Login(props) {
       if (res.status === 200) {
         console.log(res);
         message.success(res.message);
+        dispath(getUserToken({token:res.token}))
+        dispath(getUserInfo({userName:value.userName,userId:res.data.id}))
+        cookie.save("pikachu-token", res.token,{path:'/',httpOnly:false,expires});
+        cookie.save("user-info",res.data.id,{path:'/',httpOnly:false,expires})
+        localStorage.setItem('userInfo',JSON.stringify({userName:value.userName}))
         navigate("/layout");
-        dispath(getUserToken({token:res.token,userName:value.username}))
-        localStorage.setItem("pikachu-token", JSON.stringify(res.token));
-        console.log(state);
+        
       } else {
         console.log(res);
         message.error(res.message);
@@ -52,7 +59,7 @@ function Login(props) {
           onFinishFailed={finishFail}
         >
           <Form.Item
-            name="username"
+            name="userName"
             rules={[{ required: true, message: "Please input your Username!" }]}
           >
             <Input

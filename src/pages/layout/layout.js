@@ -17,7 +17,7 @@ import Nav from '../../components/home/nav';
     return (
       <Layout className={layoutStyle['components-layout']}>
         <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className={layoutStyle['logo']} />
+          <div className={layoutStyle['logo']} >皮卡秋</div>
           <Menu
           className={layoutStyle['menu-contain']}
             theme="dark"
@@ -27,17 +27,17 @@ import Nav from '../../components/home/nav';
               {
                 key: '1',
                 icon: <UserOutlined />,
-                label: 'nav 1',
+                label: '首页',
               },
               {
                 key: '2',
                 icon: <VideoCameraOutlined />,
-                label: 'nav 2',
+                label: '文章',
               },
               {
                 key: '3',
                 icon: <UploadOutlined />,
-                label: 'nav 3',
+                label: '关于',
               },
             ]}
           />

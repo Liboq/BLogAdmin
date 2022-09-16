@@ -19,10 +19,11 @@ const store = configStore()
  */
 axios.interceptors.request.use(
   (config) => {
+    console.log(store.getState(),'11111');
+    // config.data = JSON.stringify(config.data)
 if(store.getState().User.token){
   config.headers['pikachu-token'] = store.getState().User.token
 }
-    config.data = JSON.stringify(config.data)
     config.headers['Content-Type'] = 'application/json'
     config.headers['x-csrf-token'] = getCookie('csrfToken')
     return config
