@@ -8,11 +8,14 @@ import {
   import layoutStyle  from './layout.module.less'
   import { Layout, Menu } from 'antd';
   import React, { useState } from 'react';
-import Nav from '../../components/home/nav';
+import Nav from '../../components/home/Nav/nav';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+  
 
   const { Header, Sider, Content } = Layout;
   
   const Home = () => {
+    const navigate = useNavigate()
     const [collapsed, setCollapsed] = useState(false);
     return (
       <Layout className={layoutStyle['components-layout']}>
@@ -27,17 +30,17 @@ import Nav from '../../components/home/nav';
               {
                 key: '1',
                 icon: <UserOutlined />,
-                label: '首页',
+                label: <> <NavLink to='/layout'>首页</NavLink></>,
               },
               {
                 key: '2',
                 icon: <VideoCameraOutlined />,
-                label: '文章',
+                label: <> <NavLink to='/layout/markdown'>文章</NavLink></>,
               },
               {
                 key: '3',
                 icon: <UploadOutlined />,
-                label: '关于',
+                label: <> <NavLink to='/layout/about'>关于</NavLink></>,
               },
             ]}
           />
@@ -56,14 +59,14 @@ import Nav from '../../components/home/nav';
             <div className={layoutStyle['nav-head']}><Nav/></div>
           </Header>
           <Content
-            className={layoutStyle["site-layout-background"]}
+            className={layoutStyle["site-content-background"]}
             style={{
               margin: '24px 16px',
               padding: 24,
               minHeight: 280,
             }}
           >
-            Content
+            <Outlet />
           </Content>
         </Layout>
       </Layout>

@@ -1,5 +1,5 @@
 
-import Github from '../../img/github.svg'
+import Github from '../../..//img/github.svg'
 import NavModule from './nav.module.less'
 import {useSelector} from 'react-redux'
 import { Dropdown, Avatar, Menu, Space } from 'antd';

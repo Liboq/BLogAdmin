@@ -11,6 +11,10 @@ import configStore from './store/index.js'
 import Layout from './pages/layout/layout.js'
 import PrivateRoute from './privateRoute'
 import NotFund from './404'
+import Markdown from './pages/layout/markdown'
+import Home from './pages/layout/home'
+import About from './pages/layout/about'
+
 const store = configStore()
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
@@ -24,7 +28,11 @@ root.render(
        <Route path = '/user/login' element = {<Login/>} />
        <Route path = '/user/regist' element = {<Regist/>} />
        <Route element = {<PrivateRoute/>}>
-        <Route path = '/layout' element={<Layout/>}></Route>
+        <Route path = '/layout' element={<Layout/>}>
+          <Route  index element = {<Home></Home>}></Route>
+          <Route path = 'markdown' element ={<Markdown/>}></Route>
+          <Route path= "about" element = {<About/>}></Route>
+        </Route>
        </Route>
        <Route path='*' element={<NotFund />}></Route>
        

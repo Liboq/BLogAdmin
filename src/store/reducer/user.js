@@ -4,7 +4,7 @@ const userName =  (localStorage.getItem('userInfo')&&JSON.parse(localStorage.get
 const INITIAL_STATE = {
   userName:userName||null,
   token: cookie.load('pikachu-token')||null,
-  userId:(cookie.load('user-info')&&cookie.load('user-info').id)||null,
+  userId:(cookie.load('user-info')&&cookie.load('user-info'))||null,
 }
 export default function User (state = INITIAL_STATE, action) {
   switch (action.type) {
