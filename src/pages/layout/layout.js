@@ -62,7 +62,6 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
             className={layoutStyle["site-content-background"]}
             style={{
               margin: '24px 16px',
-              padding: 24,
               minHeight: 280,
             }}
           >

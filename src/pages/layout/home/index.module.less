@@ -1,0 +1,97 @@
+
+@import url('/src/style/var.less');
+
+.home{
+
+    .head{
+        height: 140px;
+        display: flex;
+        margin-bottom: 20px;
+        margin-left: 10px;
+        box-sizing: border-box;
+        .welcome {
+            flex: 1;
+            background-color: #fff;
+            display: flex;
+            width: 100%;
+            &:hover{
+                box-shadow: @box-shadow-base;
+            }
+            .welcome-box{
+                width: 100%;
+                display: flex;
+                box-sizing: border-box;
+                height: 100%;
+                .img{
+                    height: 140px;
+                }
+                .welcome-right{
+                    flex: 1;
+                    overflow: hidden;
+                    .welcome-time{
+                        display: flex;
+                        box-sizing: border-box;
+                        font-size: 30px;
+                        font-weight: 700;
+                        justify-content: center;
+                        align-items: center;
+                        .welcome-name{
+                            color: @primary-color;
+                        }
+                    }
+                    .welcome-wisdom{
+                        font-size: 16px;
+                        display: flex;
+                        justify-content: flex-end;
+                        margin-right: 30px;
+                        .poem{
+                            margin-right: 30px;
+                        }
+                    }
+                }
+                
+               
+               
+
+            }
+
+        }
+        .time{
+            width: 400px;
+            background-color: #fff;
+            margin-left: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            &:hover{
+                box-shadow: @box-shadow-base;
+            }
+            .time-content{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                .time-date{
+                    font-size: 30px;
+                    font-weight: 700;
+                }
+                .time-ip{
+                    font-size: 20px;
+                }
+            }
+        }
+        .notice {
+            width: 400px;
+            background-color: #fff;
+            margin-left: 10px;
+            overflow: hidden;
+            box-sizing: border-box;
+            &:hover{
+                box-shadow: @box-shadow-base;
+            }
+        }
+    }
+    .cards {
+        height: 140px;
+        overflow: hidden;
+    }
+}
