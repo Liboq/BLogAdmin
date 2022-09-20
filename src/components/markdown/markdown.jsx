@@ -5,16 +5,18 @@ import ViewMd from "./view";
 import './style/github-dark.css';
 import './style/index.css';
 
-function Markdown() {
+function Markdown(props) {
   const [text, setText] = useState("");
- 
+  props.getMd(text)
+  const setT =(val)=>{
+    setText(val)
+  }
   return (
     <>
-    <div className="marked-head">welcome to markdown edit</div>
     <div className="marked">
 
       <Posts
-      setText={setText}
+      setText={setT}
        
       ></Posts>
       <ViewMd   text ={text} ></ViewMd>

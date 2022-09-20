@@ -1,10 +1,4 @@
-html,
-body,
-#root {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
+
 
 .marked-head {
     background-color: rgb(96, 56, 240);
@@ -16,13 +10,14 @@ body,
 }
 
 .marked {
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 232px);
     display: flex;
 }
 
 .input-region {
     background-color: rgb(233, 233, 233);
     outline: none;
+    margin-right: 30px;
 }
 
 .input-region,
@@ -30,6 +25,9 @@ body,
     flex: 1;
     padding: 20px;
     font-size: 20px;
+}
+.show-region{
+    background-color: #fff;
 }
 
 /* ——————————————————————————————显示区markdown样式—————————————————————————————— */

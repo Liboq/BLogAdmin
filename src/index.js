@@ -14,6 +14,7 @@ import NotFund from './404'
 import Markdown from './pages/layout/markdown'
 import Home from './pages/layout/home'
 import About from './pages/layout/about'
+import AddArt from './components/article/AddArt'
 
 const store = configStore()
 
@@ -30,7 +31,9 @@ root.render(
        <Route element = {<PrivateRoute/>}>
         <Route path = '/layout' element={<Layout/>}>
           <Route  index element = {<Home></Home>}></Route>
-          <Route path = 'markdown' element ={<Markdown/>}></Route>
+          <Route path = 'markdown' element ={<Markdown/>}>
+          </Route>
+          <Route path='addArt' element={<AddArt/>}></Route>
           <Route path= "about" element = {<About/>}></Route>
         </Route>
        </Route>

@@ -19,7 +19,7 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
     const [collapsed, setCollapsed] = useState(false);
     return (
       <Layout className={layoutStyle['components-layout']}>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
+        <Sider className={layoutStyle['side']} trigger={null} collapsible collapsed={collapsed}>
           <div className={layoutStyle['logo']} >皮卡秋</div>
           <Menu
           className={layoutStyle['menu-contain']}
