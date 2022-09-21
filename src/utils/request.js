@@ -24,7 +24,7 @@ axios.interceptors.request.use(
 if(store.getState().User.token){
   config.headers['pikachu-token'] = store.getState().User.token
 }
-    config.headers['Content-Type'] = 'application/json'
+    config.headers['Content-Type'] = 'application/json;charset=utf-8'
     config.headers['x-csrf-token'] = getCookie('csrfToken')
     return config
   },

@@ -1,6 +1,6 @@
 
 import { Row,Col } from "antd/lib/grid";
-import { Input, Button, Select, DatePicker,  message } from "antd";
+import { Input, Button, Select, DatePicker,  message, TimePicker } from "antd";
 import request from "../../../utils/request";
 import { useEffect, useState } from "react";
 import moment from "moment";
@@ -9,9 +9,14 @@ import Markdown from "../../markdown/markdown";
 
 moment.locale("zh-cn");
 const AddArt = () => {
-  const [tips, setTips] = useState([]);
-  const defaultDate = moment(new Date())
-  const [date, setDate] = useState(moment(new Date()));
+  const [tips,setTips] = useState([])
+  const [tipArr, setTipArr] = useState([]);
+  const [categorys, setCategorys] = useState([]);
+  const defaultDate = moment(new Date(),'YYYY-MM-DD')
+  const defaultTime = moment(new Date(), 'HH:mm:ss')
+  const [date, setDate] = useState(defaultDate.format('YYYY-MM-DD'));
+  const [time, setTime] = useState(defaultTime.format('HH:mm:ss'));
+  const [kinds,setKinds] = useState('')
   let  artContent 
   const { Option } = Select;
   const getAllTips = () => {
@@ -23,8 +28,17 @@ const AddArt = () => {
         message.error(res.message);
         console.log(res);
       }
+      request("get", "category/getAll", {}).then((res) => {
+        if (res.status === 200) {
+          console.log(res);
+          setCategorys(res.data) 
+        } else {
+          message.error(res.message);
+          console.log(res);
+        }
     });
-  };
+  })
+}
   useEffect(() => {
     getAllTips();
   }, []);
@@ -32,6 +46,8 @@ const AddArt = () => {
      artContent = value
   }
   const savaDraft = () =>{
+    console.log(tipArr);
+    console.log(time);
     console.log(date);
     console.log(artContent);
   }
@@ -59,32 +75,27 @@ const AddArt = () => {
                   style={{
                     width: 400,
                   }}
+                  onChange={(val)=>{setKinds(val)}}
                   placeholder="选择文章分类"
                   optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option.children.includes(input)
-                  }
-                  filterSort={(optionA, optionB) =>
-                    optionA.children
-                      .toLowerCase()
-                      .localeCompare(optionB.children.toLowerCase())
-                  }
+                  value={kinds}
                 >
-                  {tips.map((item) => {
+                  {categorys.map((item) => {
                     return (
                       <Option key={item.id} value={item.id}>
-                        {item.tipName}
+                        {item.categoryName}
                       </Option>
                     );
                   })}
                 </Select>
                 </Col>
-                <Col span={7} style={{margin:' 0 20px'}}>
+                <Col span={7} style={{margin:' 0 10px'}}>
                 文章标签：
                 <Select
                   mode="multiple"
                   showArrow
-                  defaultValue={["gold", "cyan"]}
+                  value={tipArr}
+                  onChange={(val)=>{setTipArr(val)}}
                   style={{
                     width: 300,
                   }}
@@ -98,8 +109,9 @@ const AddArt = () => {
                   })}
                 </Select>
                 </Col>
-                <Col span={5} style={{margin:' 0 20px'}}>
-                时间：<DatePicker placement="bottomRight" defaultValue={defaultDate}  Value={date} />
+                <Col span={5} style={{margin:' 0 10px'}}>
+                时间：<DatePicker onChange={(_,val)=>{setDate(val)}} placement="bottomRight" defaultValue={defaultDate}   />
+                <TimePicker onChange={(_,val)=>{setTime(val)}} defaultValue={defaultTime}  />
                 </Col>
             </Row>
             <div></div>
