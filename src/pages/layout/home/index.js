@@ -81,7 +81,7 @@ const Home = () => {
     editCategory();
     editTip();
     setIsModalOpen(false);
-    setEditId()
+    setEditId();
     setEditeVal("");
   };
   const showTipModal = () => {
@@ -91,12 +91,11 @@ const Home = () => {
   const showCategoryModal = () => {
     setIsModalOpen(true);
     setEditeTitle("编辑文章分类");
- 
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    setEditId()
+    setEditId();
     setEditeVal("");
   };
   useEffect(() => {
@@ -131,7 +130,7 @@ const Home = () => {
     }
   };
   const delTip = (id) => {
-    request("post", "/tip/delTip", {id}).then((res) => {
+    request("post", "/tip/delTip", { id }).then((res) => {
       if (res.status === 200) {
         getTips();
         message.success(res.message);
@@ -162,7 +161,7 @@ const Home = () => {
     }
   };
   const delCategory = (id) => {
-    request("post", "/category/delCategory", id).then((res) => {
+    request("post", "/category/delCategory", { id }).then((res) => {
       if (res.status === 200) {
         getCategorys();
         message.success(res.message);
@@ -308,6 +307,7 @@ const Home = () => {
                       onDoubleClick={() => {
                         showTipModal();
                         setEditId(item.id);
+                        setEditeVal(item.tipName);
                       }}
                       key={item.id}
                       color={item.color ? item.color : "#f50"}
@@ -351,8 +351,9 @@ const Home = () => {
                   <div>
                     <Button
                       onClick={() => {
-                        showCategoryModal(item.id);
-                        editId(item.id)
+                        showCategoryModal();
+                        setEditId(item.id);
+                        setEditeVal(item.categoryName);
                       }}
                     >
                       <EditFilled />
