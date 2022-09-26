@@ -4,6 +4,7 @@ import React from "react";
 function Posts(props) {
   return (
     <div
+    id="input"
       className="input-region markdownStyle"
       contentEditable="plaintext-only"
       onInput={(e) => {

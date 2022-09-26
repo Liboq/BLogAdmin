@@ -21,8 +21,8 @@ const Cards = (props) => {
     content: arts.length
   }]
   let list =  []
-  data.map((item,index) => {
-  return list.push(<><Card key={index} data={item} /></>)  
+  list = data.map((item,index) => {
+  return (<><Card key={index} data={item} /></>)  
   })
   return (<>
       <div className={Style["cards"]} >{list}</div>

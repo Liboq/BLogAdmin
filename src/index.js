@@ -34,6 +34,7 @@ root.render(
           <Route path = 'markdown' element ={<Markdown/>}>
           </Route>
           <Route path='addArt' element={<AddArt/>}></Route>
+          {/* <Route path='editArt/:id' element={<AddArt/>}></Route> */}
           <Route path= "about" element = {<About/>}></Route>
         </Route>
        </Route>

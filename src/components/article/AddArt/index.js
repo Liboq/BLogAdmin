@@ -1,5 +1,5 @@
 import { Row, Col } from "antd/lib/grid";
-import { Input, Button, Select, DatePicker, message, TimePicker, Upload } from "antd";
+import { Input, Button, Select, DatePicker, message, TimePicker, Upload, Image } from "antd";
 import request from "../../../utils/request";
 import { useEffect, useState } from "react";
 import moment from "moment";
@@ -7,7 +7,7 @@ import Style from "./index.module.less";
 import Markdown from "../../markdown/markdown";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation,useParams } from "react-router-dom";
 
 moment.locale("zh-cn");
 const getBase64 = (img, callback) => {
@@ -46,9 +46,29 @@ const AddArt = () => {
   const [kinds, setKinds] = useState("");
   const [imageUrl, setImageUrl] = useState();
   const [loading, setLoading] = useState(false);
+  const location =  useLocation()
+  const [oldArt,setOld] =useState()
+  const [artId,setArtId] = useState()
+ 
+  let oldContent
   let artContent;
   const { Option } = Select;
   const navigate =  useNavigate()
+  const getOneMd = async () =>{
+     const res = await request('get','/markdown/getOneMd',{id:artId})
+     console.log(res);
+     setTipArr(res.data[0].tips)
+     setKinds(+res.data[0].category)
+     setImageUrl(res.data[0].image_main)
+     setTitleEn(res.data[0].titleEn)
+     setTitleZh(res.data[0].titleZh)
+     if(imageUrl){
+      setLoading(true)
+     }
+     oldContent = res.data[0].content
+     console.log(oldContent);
+  }
+
   const getAllTips = () => {
     request("get", "tip/getAll", {}).then((res) => {
       if (res.status === 200) {
@@ -71,7 +91,18 @@ const AddArt = () => {
   };
   useEffect(() => {
     getAllTips();
+     if(location.state){
+    setArtId(location.state.id)
+
+  }
   }, []);
+
+  useEffect(()=>{
+    if(artId){
+      getOneMd()
+    }
+
+  },[artId])
   const getMd = (value) => {
     artContent = value;
   };
@@ -86,13 +117,30 @@ const AddArt = () => {
       time,
       isDraft,
       category:kinds,
-      content:artContent,
       imageUrl
     };
+    if(isDraft===1){
+      data['content'] = artContent
+    }else{
+      data['draft'] = artContent
+    }
     let result = false
    const flag = titleZh.trim()&&titleEn.trim()&&tips.length>0&&date&&time&&kinds!==""&&artContent.trim()
    if(flag){
-    const res = await request('post','/markdown/addMd',data)
+    if(artId){
+      data['_id'] = artId
+      const res = await request('post','/markdown/updateOneMd',data)
+      if(res.status===200){
+        message.success(res.message)
+         result = true
+      }
+      else{
+        message.error(res.message)
+        result = false
+      }
+    }
+    else{
+      const res = await request('post','/markdown/addMd',data)
       if(res.status===200){
         message.success(res.message)
          result = true
@@ -102,6 +150,8 @@ const AddArt = () => {
         message.error(res.message)
         result = false
       }
+    }
+    
    }else{
     result = false
     message.error('不能为空')
@@ -180,7 +230,7 @@ const AddArt = () => {
       beforeUpload={beforeUpload}
       onChange={handleChange}
     >
-      {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+      {imageUrl ? <Image src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
     </Upload>
     </ImgCrop > </Col>
             <Col span={1} style={{ margin: " 0 20px" }}>
@@ -259,7 +309,7 @@ const AddArt = () => {
           <div></div>
           <div></div>
         </div>
-        <Markdown getMd={getMd} />
+        <Markdown oldContent={oldContent} getMd={getMd} />
       </div>
     </>
   );

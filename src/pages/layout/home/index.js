@@ -345,7 +345,7 @@ const Home = () => {
               itemLayout="horizontal"
               dataSource={categorys}
               renderItem={(item) => (
-                <List.Item>
+                <List.Item key={item.id}>
                   <div className={Style["circle"]}>{item.id}</div>
                   <div>{"《  " + item.categoryName + "  》"}</div>
                   <div>
