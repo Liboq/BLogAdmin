@@ -28,11 +28,14 @@ function Login(props) {
       if (res.status === 200) {
         console.log(res);
         message.success(res.message);
-        dispath(getUserToken({token:res.token}))
-        dispath(getUserInfo({userName:value.userName,userId:res.data.id}))
         cookie.save("pikachu-token", res.token,{path:'/',httpOnly:false,expires});
         cookie.save("user-info",res.data.id,{path:'/',httpOnly:false,expires})
+
+        dispath(getUserToken({token:res.token}))
+        dispath(getUserInfo({userName:value.userName,userId:res.data.id}))
+
         localStorage.setItem('userInfo',JSON.stringify({userName:value.userName}))
+        console.log('2222222222222222222222222222222222');
         navigate("/layout");
         
       } else {

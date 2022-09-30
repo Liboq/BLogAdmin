@@ -1,8 +1,9 @@
 import Style from './index.module.less'
 const Card = (props) => {
+  console.log(props,'props');
   return (
     <>
-      <div className={Style["card"]}>
+      <div key={props.title} className={Style["card"]}>
         <div className={Style["card-title"]}>{props.data.title}</div>
         <div className={Style["card-content"]}>{props.data.content}</div>
       </div>
@@ -22,7 +23,7 @@ const Cards = (props) => {
   }]
   let list =  []
   list = data.map((item,index) => {
-  return (<><Card key={index} data={item} /></>)  
+  return (<div key={index}><Card  data={item} /></div>)  
   })
   return (<>
       <div className={Style["cards"]} >{list}</div>

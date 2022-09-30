@@ -10,7 +10,9 @@ const getCookie = (val) => { // 获取x-csrf-token字段
   if (arr === document.cookie.match(reg)) { return unescape(arr[2]) } else { return null }
 }
 axios.defaults.timeout = 10000
-axios.defaults.baseURL = 'http://localhost:7001'
+// axios.defaults.baseURL = 'http://liboqiao.top:7001'
+axios.defaults.baseURL = '/api'
+
 
 const store = configStore()
 

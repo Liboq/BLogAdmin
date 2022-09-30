@@ -21,10 +21,10 @@ const store = configStore()
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   
-  <React.StrictMode>
+  
     <Provider store={store}>
      <BrowserRouter>
-     <Routes>
+     <Routes >
        <Route path = '/' element = {<App/>} />
        <Route path = '/user/login' element = {<Login/>} />
        <Route path = '/user/regist' element = {<Regist/>} />
@@ -43,7 +43,6 @@ root.render(
      </Routes>
     </BrowserRouter>
     </Provider>
-  </React.StrictMode>
   
 )
 

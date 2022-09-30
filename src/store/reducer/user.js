@@ -1,10 +1,11 @@
 import { GET_USER_TOKEN ,GET_USER_INFO} from '../actionTypes/user'
 import cookie from 'react-cookies'
+console.log(cookie.load('pikachu-token'),'token');
 const userName =  (localStorage.getItem('userInfo')&&JSON.parse(localStorage.getItem('userInfo')).userName)
 const INITIAL_STATE = {
-  userName:userName||null,
+  userName:userName||'123',
   token: cookie.load('pikachu-token')||null,
-  userId:(cookie.load('user-info')&&cookie.load('user-info'))||null,
+  userId:cookie.load('user-info')||null,
 }
 export default function User (state = INITIAL_STATE, action) {
   switch (action.type) {

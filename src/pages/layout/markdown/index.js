@@ -44,7 +44,6 @@ const Markdown = () => {
       pageSize,
     };
     request("post", "/markdown/getRightAll", data).then((res) => {
-      console.log(res, "art");
       let Data = [];
       if (tips.length > 0 && categorys.length > 0) {
         Data = res.data.map((item) => {

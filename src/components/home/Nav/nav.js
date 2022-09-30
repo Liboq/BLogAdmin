@@ -33,7 +33,7 @@ const Nav = () =>{
     />
   );
     const user = useSelector(state=>state.User)
-    console.log(user);
+    console.log(user,'nav');
     const navigate = useNavigate()
     const layout = ()=>{
       localStorage.setItem('userInfo','')

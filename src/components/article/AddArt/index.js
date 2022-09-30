@@ -7,7 +7,8 @@ import Style from "./index.module.less";
 import Markdown from "../../markdown/markdown";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
-import { useNavigate,useLocation,useParams } from "react-router-dom";
+import { useNavigate,useLocation, } from "react-router-dom";
+import {useSelector} from "react-redux"
 
 moment.locale("zh-cn");
 const getBase64 = (img, callback) => {
@@ -49,6 +50,7 @@ const AddArt = () => {
   const location =  useLocation()
   const [oldArt,setOld] =useState()
   const [artId,setArtId] = useState()
+  const state = useSelector(state=>state)
  
   let oldContent
   let artContent;
@@ -90,6 +92,7 @@ const AddArt = () => {
     });
   };
   useEffect(() => {
+    console.log(state,2323223);
     getAllTips();
      if(location.state){
     setArtId(location.state.id)

@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "version": "0.1.0",
+  "version": "0.1.0.2022.09.28",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",
@@ -121,6 +121,7 @@
     "eslint-plugin-promise": "^6.0.1",
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "http-proxy-middleware": "^2.0.6",
     "less": "^4.1.3",
     "less-loader": "^11.0.0"
   },

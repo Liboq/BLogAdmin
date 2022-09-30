@@ -63,6 +63,7 @@ const Welcome = () => {
 
 // home
 const Home = () => {
+  const state = useSelector(state=>state)
   const [ecDom, setEchom] = useState("");
   const [users, setUsers] = useState([]);
   const [arts, setArts] = useState([]);
@@ -77,6 +78,8 @@ const Home = () => {
   const [editeValue, setEditeVal] = useState("");
   // 获取想要编辑的id
   const [editId, setEditId] = useState();
+  console.log(state);
+
   const handleOk = () => {
     editCategory();
     editTip();
@@ -99,6 +102,7 @@ const Home = () => {
     setEditeVal("");
   };
   useEffect(() => {
+    console.log(state);
     getAllUser();
     getAllArticle();
     getTips();
@@ -113,9 +117,12 @@ const Home = () => {
         getTips();
         message.success(res.message);
         setTipName("");
-      }
+      }else{
       message.error(res.message);
+      }
     });
+
+
   };
   const editTip = () => {
     if (editTitle === "编辑文章标签") {
@@ -124,8 +131,10 @@ const Home = () => {
         if (res.status === 200) {
           getTips();
           message.success(res.message);
-        }
+        }else{
         message.error(res.message);
+
+        }
       });
     }
   };
@@ -134,8 +143,10 @@ const Home = () => {
       if (res.status === 200) {
         getTips();
         message.success(res.message);
-      }
+      }else{
       message.error(res.message);
+
+      }
     });
   };
   const addCategory = () => {
@@ -144,8 +155,10 @@ const Home = () => {
         getCategorys();
         message.success(res.message);
         setCategoryName("");
-      }
+      }else{
       message.error(res.message);
+        
+      }
     });
   };
   const editCategory = () => {
@@ -155,8 +168,10 @@ const Home = () => {
         if (res.status === 200) {
           getCategorys();
           message.success(res.message);
-        }
+        }else{
         message.error(res.message);
+
+        }
       });
     }
   };
@@ -284,7 +299,7 @@ const Home = () => {
           ></div>
           <div className={Style["tips"]}>
             <div>文章标签管理</div>
-            <Row>
+            <Row >
               <Col span={18} style={{ margin: " 0 10px 0 0 " }}>
                 <Input
                   onChange={(e) => {
@@ -302,14 +317,14 @@ const Home = () => {
             <div>
               {tips.map((item) => {
                 return (
-                  <>
+                  <span  key={item.id}>
                     <Tag
                       onDoubleClick={() => {
                         showTipModal();
                         setEditId(item.id);
                         setEditeVal(item.tipName);
                       }}
-                      key={item.id}
+                     
                       color={item.color ? item.color : "#f50"}
                       closable
                       onClose={(e) => {
@@ -319,7 +334,7 @@ const Home = () => {
                     >
                       {item.tipName}
                     </Tag>
-                  </>
+                  </span>
                 );
               })}
             </div>
