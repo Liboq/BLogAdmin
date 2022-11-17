@@ -59,3 +59,16 @@ body,
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 /* ———————————————————————————————————————————————————————————— */
+.abs-btn{
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+}
+.load-btn{
+    background: linear-gradient(to right, rgb(255, 96, 52), rgb(238, 10, 36));
+    color: white;
+    border: none;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+}
