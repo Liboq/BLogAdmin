@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8623d573.css",
+    "main.js": "/static/js/main.e595ce98.js",
+    "static/js/787.28cb0dcd.chunk.js": "/static/js/787.28cb0dcd.chunk.js",
+    "static/media/login_bgc.jpg": "/static/media/login_bgc.03aa142e5d8651f378f9.jpg",
+    "static/media/pikachu.jpeg": "/static/media/pikachu.f9544b3b3383aea95535.jpeg",
+    "static/media/github.svg": "/static/media/github.cc921ee0bb04b3d48a872fe4d292e06d.svg",
+    "index.html": "/index.html",
+    "main.8623d573.css.map": "/static/css/main.8623d573.css.map",
+    "main.e595ce98.js.map": "/static/js/main.e595ce98.js.map",
+    "787.28cb0dcd.chunk.js.map": "/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8623d573.css",
+    "static/js/main.e595ce98.js"
+  ]
+}
