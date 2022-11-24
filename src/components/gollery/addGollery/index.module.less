@@ -1,0 +1,82 @@
+.addGollery{
+    height: 860px;
+    &-head{
+        background-color: #b9dfff;
+        &-content{
+            
+            &-btn{
+                margin: 0 10px;
+
+            }
+            &-delBtn{
+                float: right;
+                margin-right: 20px;
+                top: 18px;
+            }
+        }
+    }
+    &-content{
+        height: 100%;
+        background-color: #d4f7ff;
+            display: flex;
+            &-form{
+                
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+                height: 100%;
+                min-height: 100%;
+                &-input{
+                    height: 50px;
+                    width: 600px;
+                    display: flex;
+                    align-items: center;
+                    margin: 10px;
+                    box-sizing: border-box;
+                    &-item{
+                        height: 40px;
+                        width: 500px;
+                    }
+                    &-imglist{
+                        // height: 200px;
+                    }
+                }
+                &-textarea{
+                    width: 600px;
+                    display: flex;
+                    box-sizing: border-box;
+                    margin: 10px;
+                    &-imglist{
+                        width: 500px;
+                    }
+
+                }
+                .input-title{
+                    width: 100%;
+                    width: 60px;
+                }
+            }
+            &-imgs{
+                box-sizing: border-box;
+                width: 50%;
+                height: 100%;
+                min-height: 100%;
+                background-color: #fff;
+                padding: 20px ;
+                margin-right: 20px;
+                ul{
+                    display: flex;
+                    width: 560px;
+                    flex-wrap: wrap;
+                    list-style-type: none;
+                    justify-content: space-between;
+                    li{
+                        width: 200px;
+                        height: 200px;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                    }
+                }
+            }
+        }
+    }

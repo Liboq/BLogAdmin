@@ -15,6 +15,9 @@ import Markdown from './pages/layout/markdown'
 import Home from './pages/layout/home'
 import About from './pages/layout/about'
 import AddArt from './components/article/AddArt'
+import Message from './pages/layout/message'
+import Gollery from './pages/layout/gollery'
+import AddGollery from './components/gollery/addGollery'
 
 const store = configStore()
 
@@ -36,6 +39,10 @@ root.render(
           <Route path='addArt' element={<AddArt/>}></Route>
           {/* <Route path='editArt/:id' element={<AddArt/>}></Route> */}
           <Route path= "about" element = {<About/>}></Route>
+          <Route path= "message" element = {<Message/>}></Route>
+          <Route path= "gollery" element = {<Gollery/>}></Route>
+          <Route path= "addGollery" element = {<AddGollery/>}></Route>
+        
         </Route>
        </Route>
        <Route path='*' element={<NotFund />}></Route>

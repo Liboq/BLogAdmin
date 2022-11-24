@@ -103,8 +103,8 @@ module.exports = function (proxy, allowedHost) {
     proxy:{
       "/api": {
         // 访问时遇到 /api开头的路径，代理到此服务下
-        target: "http://150.158.213.45:7001", // 服务器跨域路径
-        // target: "http://127.0.0.1:7001", // 本地路径
+        // target: "http://150.158.213.45:7001", // 服务器跨域路径
+        target: "http://127.0.0.1:7001", // 本地路径
         ws: true, // 允许 websockets协议
         changeOrigin: true, // 开启代理服务器，就会给你代理转发
         pathRewrite: {

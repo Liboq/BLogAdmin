@@ -4,6 +4,8 @@ import {
     UploadOutlined,
     UserOutlined,
     VideoCameraOutlined,
+    MessageOutlined,
+    FileImageOutlined 
   } from '@ant-design/icons';
   import layoutStyle  from './layout.module.less'
   import { Layout, Menu } from 'antd';
@@ -42,6 +44,16 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
                 icon: <UploadOutlined />,
                 label: <> <NavLink to='/layout/about'>关于</NavLink></>,
               },
+              {
+                key:'4',
+                icon:<MessageOutlined />,
+                label: <> <NavLink to='/layout/message'>留言</NavLink></>
+              },
+              {
+                key:'5',
+                icon:<FileImageOutlined />,
+                label: <> <NavLink to='/layout/gollery'>图库</NavLink></>
+              }
             ]}
           />
         </Sider>
