@@ -8,6 +8,7 @@ import {
   createGollery,
   getOneGollery,
   updateGollery,
+  delGollery
 } from "../../../request/gollery";
 const { TextArea } = Input;
 const AddGollery = (props) => {
@@ -28,6 +29,13 @@ const AddGollery = (props) => {
   const getOneGollerys = async () => {
     const res = await getOneGollery({ _id });
     console.log(res);
+    if(res.status ===200){
+      setType(res.data[0].type)
+      setCoverPath(res.data[0].coverPath)
+      setPath(res.data[0].path.join(','))
+      setDescription(res.data[0].description)
+      message.info(res.message)
+    }
   };
   const updateGollerys = async () => {
     if (type.trim().length <= 0) {
@@ -81,7 +89,7 @@ const AddGollery = (props) => {
 
   };
   const delGollerys = async () => {
-    const res = await delGollerys({ _id });
+    const res = await delGollery({ _id });
     console.log(res);
     if (res.status === 200) {
       navigate("/layout/gollery");
