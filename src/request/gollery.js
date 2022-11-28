@@ -6,7 +6,7 @@ export const getAllGollery =  ()=> {
     params:_id
 */
 export const getOneGollery =  (params)=> {
-  return  request('get','gollery/getOneGollery',params)
+  return  request('post','gollery/getOneGollery',params)
 }
 /* 
 /* 
