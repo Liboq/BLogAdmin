@@ -43,7 +43,7 @@ const Markdown = () => {
       pageNum,
       pageSize,
     };
-    request("post", "/markdown/getRightAll", data).then((res) => {
+    request("post", "markdown/getRightAll", data).then((res) => {
       let Data = [];
       if (tips.length > 0 && categorys.length > 0) {
         Data = res.data.map((item) => {
@@ -59,15 +59,21 @@ const Markdown = () => {
             return tips[curIndex].tipName;
           });
           //  URL
-          item["URL"] = `http://localhost:8080/md/${item.titleEn}`;
+          item["URL"] = `http://150.158.213.45:3001/article?titleEn=${item.titleEn}`;
           return item;
         });
       }
-      setTotal(Data.length);
-
+      getTotal()
       setArticle(Data);
     });
   };
+  const getTotal = () =>{
+    request("get", "markdown/getAll").then((res) => {
+      if (res.status ===200) {
+        setTotal(res.data.length);
+      }
+  })
+}
 
   const getAllTips = () => {
     request("get", "tip/getAll", {}).then((res) => {
