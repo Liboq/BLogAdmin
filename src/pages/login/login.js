@@ -89,7 +89,7 @@ function Login(props) {
             >
               Log in
             </Button>
-            Or <NavLink to="/user/regist">register now!</NavLink>
+            {/* Or <NavLink to="/user/regist">register now!</NavLink> */}
           </Form.Item>
         </Form>
       </div>

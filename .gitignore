@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/pikachu
+pikachu
 
 # misc
 .DS_Store
