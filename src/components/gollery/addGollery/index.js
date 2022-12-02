@@ -18,7 +18,6 @@ const AddGollery = (props) => {
   const [description, setDescription] = useState("");
   const [coverPath, setCoverPath] = useState("");
   const [path, setPath] = useState('');
-  console.log();
   const _id = search.get("id");
   useEffect(() => {
     if (_id) {
@@ -28,7 +27,6 @@ const AddGollery = (props) => {
 
   const getOneGollerys = async () => {
     const res = await getOneGollery({ _id });
-    console.log(res);
     if(res.status ===200){
       setType(res.data[0].type)
       setCoverPath(res.data[0].coverPath)
@@ -51,13 +49,13 @@ const AddGollery = (props) => {
       return message.error("请输入正确的图片");
     }
     const data = {
+      id:_id,
       type,
       coverPath,
       description,
       path: path.trim().split(","),
     };
-    const res = await updateGollery({ _id }, data);
-    console.log(res);
+    const res = await updateGollery(data);
     if (res.status === 200) {
       navigate("/layout/gollery");
     }
@@ -82,7 +80,6 @@ const AddGollery = (props) => {
       path: path.trim().split(","),
     };
     const res = await createGollery(data);
-    console.log(res);
     if (res.status === 200) {
       navigate("/layout/gollery");
     }
@@ -90,7 +87,6 @@ const AddGollery = (props) => {
   };
   const delGollerys = async () => {
     const res = await delGollery({ _id });
-    console.log(res);
     if (res.status === 200) {
       navigate("/layout/gollery");
     }
@@ -111,7 +107,7 @@ const AddGollery = (props) => {
               </Button>
               <Button
                 type="danger"
-                onClick={()=>updateGollerys}
+                onClick={()=>updateGollerys()}
                 className={Style["addGollery-head-content-btn"]}
               >
                 更新

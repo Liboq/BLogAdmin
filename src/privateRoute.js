@@ -10,7 +10,6 @@ function PrivateRoute({ children, ...rest }) {
     const state = useSelector(state=>state)
     //从仓库取数据
     var token = state.User.token
-    console.log(token);
     const pathname = location.pathname;
     
     if(!token) return <Navigate state={{from:location}} to="/"/>

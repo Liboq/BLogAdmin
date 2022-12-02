@@ -14,7 +14,6 @@ import cookie from 'react-cookies'
 function Login(props) {
     const state = useSelector(state=>state)
     const dispath = useDispatch()
-    console.log(state);
   let navigate = useNavigate();
   
   const login = (value) => {
@@ -26,7 +25,6 @@ function Login(props) {
     };
     http("post", "/user/login", data).then((res) => {
       if (res.status === 200) {
-        console.log(res);
         message.success(res.message);
         cookie.save("pikachu-token", res.token,{path:'/',httpOnly:false,expires});
         cookie.save("user-info",res.data.id,{path:'/',httpOnly:false,expires})
@@ -35,17 +33,14 @@ function Login(props) {
         dispath(getUserInfo({userName:value.userName,userId:res.data.id}))
 
         localStorage.setItem('userInfo',JSON.stringify({userName:value.userName}))
-        console.log('2222222222222222222222222222222222');
         navigate("/layout");
         
       } else {
-        console.log(res);
         message.error(res.message);
       }
     });
   };
   const finish = (value) => {
-    console.log(value);
     login(value);
   };
   const finishFail = (err) => {

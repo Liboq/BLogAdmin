@@ -4,7 +4,6 @@ import { getAllGollery } from "../../../request/gollery";
 import Style from "./index.module.less";
 import { useNavigate } from "react-router-dom";
 const CoverMap = (props) => {
-    console.log(props);
     if (props.coverList.length > 0) {
       return props.coverList.map((item) => {
         return (
@@ -26,7 +25,6 @@ const Gollery = () => {
   const [coverList, setCoverList] = useState("");
   const getAllGollerys = async () => {
     const res = await getAllGollery();
-    console.log(res);
     if (res.status === 200) {
       setCoverList(res.data);
     }

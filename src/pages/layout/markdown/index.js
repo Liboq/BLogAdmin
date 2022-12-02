@@ -16,8 +16,10 @@ import { SearchOutlined, SyncOutlined } from "@ant-design/icons";
 import Style from "./index.module.less";
 import Column from "antd/lib/table/Column";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Markdown = () => {
+  const state =useSelector(state=>state)
   const [total, setTotal] = useState();
   const [tips, setTips] = useState([]);
   const [categorys, setCategorys] = useState([]);
@@ -45,11 +47,11 @@ const Markdown = () => {
     };
     request("post", "markdown/getRightAll", data).then((res) => {
       let Data = [];
-      if (tips.length > 0 && categorys.length > 0) {
+      if (tips.length >= 0 && categorys.length >= 0) {
         Data = res.data.map((item) => {
           item["Date"] = item.date + "  " + item.time;
-          item["category"] = categorys[item.category].categoryName;
-          item["tips"] = item.tips.map((val) => {
+          item["categorys"] = categorys[item.category].categoryName;
+          item["tipArr"] = item.tips.map((val) => {
             let curIndex;
             tips.forEach((vals, index) => {
               if (vals.id === val) {
@@ -78,25 +80,25 @@ const Markdown = () => {
   const getAllTips = () => {
     request("get", "tip/getAll", {}).then((res) => {
       if (res.status === 200) {
-        console.log(res);
+
         setTips(res.data);
       } else {
         message.error(res.message);
-        console.log(res);
+
       }
     });
     request("get", "category/getAll", {}).then((res) => {
       if (res.status === 200) {
-        console.log(res);
+ 
         setCategorys(res.data);
       } else {
         message.error(res.message);
-        console.log(res);
+
       }
     });
   };
   const pgChange = (page, pageSize) => {
-    console.log(page, pageSize);
+
     setPage(page);
     setPageSize(pageSize);
   };
@@ -124,7 +126,7 @@ const Markdown = () => {
                 value={tipArr}
                 placeholder="选择文章标签"
                 onChange={(val, option) => {
-                  console.log(option);
+
                   setTipArr(val);
                 }}
                 onClear={() => {
@@ -202,11 +204,11 @@ const Markdown = () => {
           >
             <Column title="标题" dataIndex="titleZh" key="titleZh" />
             <Column title="日期" dataIndex="Date" key="date" />
-            <Column title="分类" dataIndex="category" key="category" />
+            <Column title="分类" dataIndex="categorys" key="categorys" />
             <Column
               title="标签"
-              dataIndex="tips"
-              key="tips"
+              dataIndex="tipArr"
+              key="tipArr"
               render={(tags) => (
                 <>
                   {tags.map((tag) => (

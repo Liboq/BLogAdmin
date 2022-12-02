@@ -1,6 +1,5 @@
 import Style from './index.module.less'
 const Card = (props) => {
-  console.log(props,'props');
   return (
     <>
       <div key={props.title} className={Style["card"]}>
@@ -13,14 +12,28 @@ const Card = (props) => {
 const Cards = (props) => {
   const numbers = props.numbers
   const arts = props.arts
-  console.log(props);
+  const message = props.message
+  const gollery = props.gollery
   const data = [{
     title:'网站用户数量',
     content: numbers
   },{
     title:'文章数量',
     content: arts.length
-  }]
+  },
+  {
+    title:'留言数量',
+    content: message
+  },
+  {
+    title:'图库数量',
+    content: gollery
+  },
+  {
+    title:'友链数',
+    content:1
+  }
+]
   let list =  []
   list = data.map((item,index) => {
   return (<div key={index}><Card  data={item} /></div>)  

@@ -32,7 +32,7 @@ function ViewMd(props) {
   }, []);
   return (
     <div className="show-region markdownStyle" dangerouslySetInnerHTML={{
-      __html: marked.parse(props.text).replace(/<pre>/g, "<pre id='hljs'>"),
+      __html: marked.parse(props.text||'').replace(/<pre>/g, "<pre id='hljs'>"),
     }}>
 
     </div>

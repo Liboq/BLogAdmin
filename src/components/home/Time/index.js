@@ -17,7 +17,6 @@ const Time = () => {
           setIp(res.data.ip);
         } else {
           message.error(res.message);
-          console.log(res);
         }
       });
     };

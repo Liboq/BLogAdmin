@@ -40,7 +40,6 @@ const Regist = () => {
   const [form] = Form.useForm();
   let navigate = useNavigate();
   const regist = (values) => {
-    console.log("Received values of form: ", values);
     const { userName, password, phone } = values;
     const data = {
       userName,
@@ -52,10 +51,8 @@ const Regist = () => {
         message.success(res.message);
         navigate("/user/login");
       } else {
-        console.log(res);
         message.error(res.message);
       }
-      console.log(res);
     });
   };
 

@@ -18,6 +18,8 @@ import Style from "./index.module.less";
 import * as echarts from "echarts";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import Time from "../../../components/home/Time";
+import { getAllMes } from "../../../request/message";
+import { getAllGollery } from "../../../request/gollery";
 
 moment.locale("zh-cn");
 
@@ -25,8 +27,15 @@ moment.locale("zh-cn");
 const Welcome = () => {
   const nowTime = new Date().getHours();
   const userName = useSelector((state) => state.User).userName;
-  console.log(userName);
-  console.log(nowTime);
+  const [hot,setHot] = useState({})
+  useEffect(()=>{
+    hitokoto()
+  },[userName])
+  const hitokoto = async () => {
+    const res =await request('get','https://v1.hitokoto.cn/?encode=json&lang=cn')
+    setHot(res)
+  }
+
   const timeZh = () => {
     if (nowTime < 12 && nowTime >= 0) {
       return "早上";
@@ -52,8 +61,8 @@ const Welcome = () => {
             <div className={Style["welcome-name"]}>{userName}</div>!
           </div>
           <div className={Style["welcome-wisdom"]}>
-            <div className={Style["poem"]}>三人行，必有我师焉</div>
-            <div>——孔子</div>
+            <div className={Style["poem"]}>{hot.hitokoto}</div>
+            <div>——{hot.from_who||userName}</div>
           </div>
         </div>
       </div>
@@ -78,7 +87,9 @@ const Home = () => {
   const [editeValue, setEditeVal] = useState("");
   // 获取想要编辑的id
   const [editId, setEditId] = useState();
-  console.log(state);
+  const [message, setMes] = useState([]);
+  const [gollery, setGollery] = useState(1)
+
 
   const handleOk = () => {
     editCategory();
@@ -102,14 +113,16 @@ const Home = () => {
     setEditeVal("");
   };
   useEffect(() => {
-    console.log(state);
+   
+    getMessages()
     getAllUser();
     getAllArticle();
     getTips();
     getCategorys();
+    getGolleryLen()
     var echarts = document.getElementById("echarts");
     setEchom(echarts);
-  }, []);
+  }, [state]);
 
   const addTip = () => {
     request("post", "/tip/addTip", { tipName }).then((res) => {
@@ -220,10 +233,17 @@ const Home = () => {
         setUsers(res.data.users);
       } else {
         message.error(res.message);
-        console.log(res);
       }
     });
   };
+  const getMessages =  async() =>{
+   const res =  await getAllMes()
+    setMes(res.data.length)
+  }
+  const getGolleryLen = async()=>{
+    const res = await getAllGollery()
+    setGollery(res.data.length)
+  }
   // echarts
   if (ecDom !== "") {
     const myChart = echarts.init(ecDom);
@@ -233,7 +253,6 @@ const Home = () => {
     dataChart = categorys.map((item) => {
       let number = 0;
       categoryNum.forEach((val) => {
-        console.log(item.id === +val);
         if (item.id === +val) {
           number++;
         }
@@ -289,7 +308,7 @@ const Home = () => {
           <div className={Style["notice"]}>公告</div>
         </div>
         <div className={Style["cards"]}>
-          <Cards numbers={users.length} arts={arts} />
+          <Cards gollery={gollery} message ={message} numbers={users.length} arts={arts} />
         </div>
         <div className={Style["dataSet"]}>
           <div

@@ -9,8 +9,9 @@ import { useEffect } from "react";
 function Markdown(props) {
   
   useEffect(()=>{
-    console.log(props.oldContent);
-  },[])
+    setText(props.oldContent)
+
+  },[props])
   const [text, setText] = useState('')
   props.getMd(text)
   
@@ -22,6 +23,7 @@ function Markdown(props) {
     <div className="marked">
 
       <Posts
+      content = {props.oldContent}
       setText={setT}
        
       ></Posts>

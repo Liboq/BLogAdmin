@@ -13,7 +13,7 @@ const Message = ()=>{
     const getAllMess = async()=>{
        const res =  await getAllMes()
        setDataList(res.data)
-       console.log(res);
+
     }
     return <><Tab delMessage={delMessages} dataList={dataList}></Tab></>
 }
