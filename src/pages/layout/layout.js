@@ -5,7 +5,8 @@ import {
     UserOutlined,
     VideoCameraOutlined,
     MessageOutlined,
-    FileImageOutlined 
+    FileImageOutlined,
+    ControlOutlined  
   } from '@ant-design/icons';
   import layoutStyle  from './layout.module.less'
   import { Layout, Menu } from 'antd';
@@ -53,6 +54,11 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
                 key:'5',
                 icon:<FileImageOutlined />,
                 label: <> <NavLink to='/layout/gollery'>图库</NavLink></>
+              },
+              {
+                key:'6',
+                icon:<ControlOutlined />,
+                label: <> <NavLink to='/layout/others'>其他</NavLink></>
               }
             ]}
           />

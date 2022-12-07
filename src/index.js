@@ -18,6 +18,7 @@ import AddArt from './components/article/AddArt'
 import Message from './pages/layout/message'
 import Gollery from './pages/layout/gollery'
 import AddGollery from './components/gollery/addGollery'
+import Others from './pages/layout/others'
 
 const store = configStore()
 
@@ -42,7 +43,8 @@ root.render(
           <Route path= "message" element = {<Message/>}></Route>
           <Route path= "gollery" element = {<Gollery/>}></Route>
           <Route path= "addGollery" element = {<AddGollery/>}></Route>
-        
+          <Route path= "others" element = {<Others/>}></Route>
+
         </Route>
        </Route>
        <Route path='*' element={<NotFund />}></Route>
