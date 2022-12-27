@@ -76,6 +76,17 @@ const Markdown = () => {
       }
   })
 }
+  const delArticle= (record)=>{
+    console.log('record',record);
+    request('post','markdown/delMd',[record['_id']]).then((res)=>{
+      if (res.status === 200) {
+        findMd()
+      } else {
+        message.error(res.message);
+
+      }
+    })
+  }
 
   const getAllTips = () => {
     request("get", "tip/getAll", {}).then((res) => {
@@ -239,7 +250,7 @@ const Markdown = () => {
                       编辑
                     </NavLink>
                   </Button>
-                  <Button type="danger">删除</Button>
+                  <Button onClick={()=>delArticle(record)} type="danger">删除</Button>
                 </Space>
               )}
             />
