@@ -61,7 +61,7 @@ const Markdown = () => {
             return tips[curIndex].tipName;
           });
           //  URL
-          item["URL"] = `https://admin.liboqiao.top/article?titleEn=${item.titleEn}`;
+          item["URL"] = `https://liboqiao.top/article?titleEn=${item.titleEn}`;
           return item;
         });
       }
