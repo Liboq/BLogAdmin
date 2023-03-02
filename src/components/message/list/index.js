@@ -14,7 +14,7 @@ const App = (props) => {
     }
     const goSee = ()=>{
       const w=window.open('about:blank');
-      w.location.href="http://127.0.0.1:3001/message"
+      w.location.href="https://admin.liboqiao.top/message"
     }
     return(
         <Table rowKey={(record) => {
