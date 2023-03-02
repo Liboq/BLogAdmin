@@ -6,7 +6,9 @@ import {
     VideoCameraOutlined,
     MessageOutlined,
     FileImageOutlined,
-    ControlOutlined  
+    ControlOutlined,
+    PieChartOutlined,
+    EnvironmentFilled
   } from '@ant-design/icons';
   import layoutStyle  from './layout.module.less'
   import { Layout, Menu } from 'antd';
@@ -57,6 +59,16 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
               },
               {
                 key:'6',
+                icon:<PieChartOutlined />,
+                label: <> 图表</>,
+                children:[{
+                  key:'6-1',
+                  icon:<EnvironmentFilled />,
+                  label:<> <NavLink to='/layout/echarts/chinaMap'>ChinaMap</NavLink></>
+                }]
+              },
+              {
+                key:'7',
                 icon:<ControlOutlined />,
                 label: <> <NavLink to='/layout/others'>其他</NavLink></>
               }
