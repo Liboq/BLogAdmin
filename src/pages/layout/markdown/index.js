@@ -50,7 +50,7 @@ const Markdown = () => {
       if (tips.length >= 0 && categorys.length >= 0) {
         Data = res.data.map((item) => {
           item["Date"] = item.date + "  " + item.time;
-          item["categorys"] = categorys[item.category].categoryName;
+          item["categorys"] = categorys[item.category]&&categorys[item.category].categoryName;
           item["tipArr"] = item.tips.map((val) => {
             let curIndex;
             tips.forEach((vals, index) => {
@@ -58,7 +58,7 @@ const Markdown = () => {
                 curIndex = index;
               }
             });
-            return tips[curIndex].tipName;
+            return tips[curIndex]&&tips[curIndex].tipName;
           });
           //  URL
           item["URL"] = `https://liboqiao.top/article?titleEn=${item.titleEn}`;

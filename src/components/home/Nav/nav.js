@@ -45,7 +45,7 @@ const Nav = () =>{
     
         <a className={NavModule['nav-item']} href="https://github.com/Liboq/react-markdown-edit" target="_balnk"><img src={Github} alt="github" /></a>
 
-        <Dropdown overlay={menu}>
+        <Dropdown>
 
       <Space>
       <div className={NavModule['nav-item']}>

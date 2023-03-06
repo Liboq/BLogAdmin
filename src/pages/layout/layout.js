@@ -70,8 +70,22 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
               {
                 key:'7',
                 icon:<ControlOutlined />,
-                label: <> <NavLink to='/layout/others'>其他</NavLink></>
-              }
+                label: <> <NavLink to='/layout/others'>首页轮播切换</NavLink></>
+              },
+              {
+                key:'8',
+                icon:<PieChartOutlined />,
+                label: <> 资源分配</>,
+                children:[{
+                  key:'8-1',
+                  icon:<EnvironmentFilled />,
+                  label:<> <NavLink to='/layout/resource/role'>角色管理</NavLink></>
+                },{
+                  key:'8-2',
+                  icon:<EnvironmentFilled />,
+                  label:<> <NavLink to='/layout/resource/permission'>权限管理</NavLink></>
+                }]
+              },
             ]}
           />
         </Sider>

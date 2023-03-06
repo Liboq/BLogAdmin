@@ -20,6 +20,9 @@ import Gollery from './pages/layout/gollery'
 import AddGollery from './components/gollery/addGollery'
 import Others from './pages/layout/others'
 import ChinaMap from './pages/layout/echarts/china'
+import Role from './pages/layout/resource/role'
+import Permission from './pages/layout/resource/permission'
+
 
 const store = configStore()
 
@@ -44,8 +47,9 @@ root.render(
           <Route path= "message" element = {<Message/>}></Route>
           <Route path= "gollery" element = {<Gollery/>}></Route>
           <Route path= "addGollery" element = {<AddGollery/>}></Route>
-          <Route path= "echarts/chinaMap" element = {<ChinaMap/>}>
-          </Route>
+          <Route path= "echarts/chinaMap" element = {<ChinaMap/>}></Route>
+          <Route path= "resource/role" element = {<Role/>}></Route>
+          <Route path= "resource/permission" element = {<Permission/>}></Route>
           <Route path= "others" element = {<Others/>}></Route>
 
         </Route>
