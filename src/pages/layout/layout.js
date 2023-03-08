@@ -84,6 +84,10 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
                   key:'8-2',
                   icon:<EnvironmentFilled />,
                   label:<> <NavLink to='/layout/resource/permission'>权限管理</NavLink></>
+                },{
+                  key:'8-3',
+                  icon:<EnvironmentFilled />,
+                  label:<> <NavLink to='/layout/resource/user'>用户管理</NavLink></>
                 }]
               },
             ]}

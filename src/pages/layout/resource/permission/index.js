@@ -1,25 +1,21 @@
 import { permmsionList } from "../../../../utils/permission";
 import { DownOutlined } from "@ant-design/icons";
-import { Tree, Table, Button } from "antd";
+import { Tree, Table, Button, TreeSelect } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { getRoles, addOneRole, delOneRole } from "../../../../request/role";
 import Style from "./index.module.less";
 const Permission = () => {
-  const dataRef = useRef();
-  const [selectData, setSelectData] = useState([]);
-  const [selectTree, setSelectTree] = useState([]);
+  const [selectTree, setSelectTree] = useState([1000]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [data, setData] = useState([]);
   const [initKeys, setInitKeys] = useState([]);
-  useEffect(() => {
-    dataRef.current = data;
-  }, [data]);
+
   useEffect(() => {
     getRoleData();
   }, []);
   const onTreeSelect = (selectedKeys, info) => {
     setSelectTree(selectedKeys);
-    const keys = dataRef.current
+    const keys = data
       .filter((item) => item.permission.includes(selectedKeys[0]))
       .map((item) => item.name);
     setInitKeys(keys);
@@ -66,12 +62,16 @@ const Permission = () => {
     const res = await getRoles();
     if (res.status === 200) {
       setData(res.data);
+      const keys = res.data
+        .filter((item) => item.permission.includes(selectTree[0]))
+        .map((item) => item.name);
+      setInitKeys(keys);
+      setSelectedRowKeys(keys);
     }
   };
 
   const rowSelection = {
     onChange: (selectedRowKey, selectedRows) => {
-      setSelectData(selectedRows);
       setSelectedRowKeys(selectedRowKey);
     },
 
@@ -94,7 +94,7 @@ const Permission = () => {
             <RoleTable
               updateRoles={updateRoles}
               selectTree={selectTree}
-              data={dataRef}
+              data={data}
               rowSelection={rowSelection}
             />
           ) : (
@@ -115,6 +115,7 @@ const TreePermission = (props) => {
           fieldNames={{ title: "name", key: "status" }}
           onSelect={props.onSelect}
           treeData={permmsionList}
+          defaultSelectedKeys={[1000]}
         />
       </div>
     </>
@@ -152,7 +153,7 @@ const RoleTable = (props) => {
             ...props.rowSelection,
           }}
           columns={columns}
-          dataSource={props.data.current}
+          dataSource={props.data}
           rowKey={(row) => row.name}
         />
       </div>

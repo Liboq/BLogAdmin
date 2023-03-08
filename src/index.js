@@ -22,6 +22,7 @@ import Others from './pages/layout/others'
 import ChinaMap from './pages/layout/echarts/china'
 import Role from './pages/layout/resource/role'
 import Permission from './pages/layout/resource/permission'
+import UserManage from './pages/layout/resource/user'
 
 
 const store = configStore()
@@ -50,6 +51,7 @@ root.render(
           <Route path= "echarts/chinaMap" element = {<ChinaMap/>}></Route>
           <Route path= "resource/role" element = {<Role/>}></Route>
           <Route path= "resource/permission" element = {<Permission/>}></Route>
+          <Route path= "resource/user" element = {<UserManage/>}></Route>
           <Route path= "others" element = {<Others/>}></Route>
 
         </Route>
