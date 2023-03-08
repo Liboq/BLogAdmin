@@ -7,3 +7,10 @@ export const isNull = (data) =>{
     }
     return flag
 }
+// 树形数据扁平化
+export const transformTree= (treeData) =>{
+  return treeData.reduce((pre,cur)=>{
+    const {children=[],...i} = cur
+    return pre.concat([{...i}],transformTree(children))
+  },[])
+}

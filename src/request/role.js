@@ -5,6 +5,12 @@ export const getRoles = ()=>{
 export const updateRole = (params)=>{
     return request('post','role/updateRole',params)
 }
+export const delOneRole = (params)=>{
+    return request('post','role/delOneRole',params)
+}
+export const addOneRole = (params)=>{
+    return request('post','role/addOneRole',params)
+}
 export const delRole = (params)=>{
     return request('post','role/delRole',params)
 }
