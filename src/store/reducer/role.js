@@ -1,6 +1,6 @@
 import { GET_Roles} from '../actionTypes/role'
 const INITIAL_STATE = {
-    role:JSON.parse(localStorage.getItem('permission')).permission||[]
+    role:localStorage.getItem('permission')&&JSON.parse(localStorage.getItem('permission')).permission||[]
 }
 export default function Roles(state = INITIAL_STATE, action){
     switch (action.type) {

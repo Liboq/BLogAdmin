@@ -40,17 +40,17 @@ root.render(
         <Route path = '/layout' element={<Layout/>}>
           <Route  index element = {<Home></Home>}></Route>
           {hasPermission(1001)&&<Route  path = 'markdown' element ={<Markdown/>}></Route>}
-          {<Route path='addArt' element={<AddArt/>}></Route>}
+          {hasPermission(100101)&&<Route path='addArt' element={<AddArt/>}></Route>}
           {/* <Route path='editArt/:id' element={<AddArt/>}></Route> */}
-          <Route path= "about" element = {<About/>}></Route>
-          <Route path= "message" element = {<Message/>}></Route>
-          <Route path= "gollery" element = {<Gollery/>}></Route>
-          <Route path= "addGollery" element = {<AddGollery/>}></Route>
-          <Route path= "echarts/chinaMap" element = {<ChinaMap/>}></Route>
-          <Route path= "resource/role" element = {<Role/>}></Route>
-          <Route path= "resource/permission" element = {<Permission/>}></Route>
-          <Route path= "resource/user" element = {<UserManage/>}></Route>
-          <Route path= "others" element = {<Others/>}></Route>
+          {hasPermission(1002)&&<Route path= "about" element = {<About/>}></Route>}
+          {hasPermission(1003)&&<Route path= "message" element = {<Message/>}></Route>}
+          {hasPermission(1004)&&<Route path= "gollery" element = {<Gollery/>}></Route>}
+          {hasPermission(100401)&&<Route path= "addGollery" element = {<AddGollery/>}></Route>}
+          {hasPermission(1005)&&<Route path= "echarts/chinaMap" element = {<ChinaMap/>}></Route>}
+          {hasPermission(1006)&&<Route path= "others" element = {<Others/>}></Route>}
+          {hasPermission(100701)&&<Route path= "resource/role" element = {<Role/>}></Route>}
+          {hasPermission(100702)&&<Route path= "resource/permission" element = {<Permission/>}></Route>}
+          {hasPermission(100703)&&<Route path= "resource/user" element = {<UserManage/>}></Route>}
 
         </Route>
        </Route>

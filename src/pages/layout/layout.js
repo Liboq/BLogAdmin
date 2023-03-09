@@ -38,21 +38,25 @@ import { useSelector } from 'react-redux';
         label: <> <NavLink to='/layout/markdown'>文章</NavLink></>,
       },
       {
+        permission:1002,
         key: '3',
         icon: <UploadOutlined />,
         label: <> <NavLink to='/layout/about'>关于</NavLink></>,
       },
       {
+        permission:1003,
         key:'4',
         icon:<MessageOutlined />,
         label: <> <NavLink to='/layout/message'>留言</NavLink></>
       },
       {
+        permission:1004,
         key:'5',
         icon:<FileImageOutlined />,
         label: <> <NavLink to='/layout/gollery'>图库</NavLink></>
       },
       {
+        permission:1005,
         key:'6',
         icon:<PieChartOutlined />,
         label: <> 图表</>,
@@ -63,23 +67,28 @@ import { useSelector } from 'react-redux';
         }]
       },
       {
+        permission:1006,
         key:'7',
         icon:<ControlOutlined />,
         label: <> <NavLink to='/layout/others'>首页轮播切换</NavLink></>
       },
       {
+        permission:1007,
         key:'8',
         icon:<PieChartOutlined />,
         label: <> 资源分配</>,
         children:[{
+          permission:100701,
           key:'8-1',
           icon:<EnvironmentFilled />,
           label:<> <NavLink to='/layout/resource/role'>角色管理</NavLink></>
         },{
+          permission:100702,
           key:'8-2',
           icon:<EnvironmentFilled />,
           label:<> <NavLink to='/layout/resource/permission'>权限管理</NavLink></>
         },{
+          permission:100703,
           key:'8-3',
           icon:<EnvironmentFilled />,
           label:<> <NavLink to='/layout/resource/user'>用户管理</NavLink></>
