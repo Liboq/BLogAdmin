@@ -35,7 +35,7 @@ const Nav = () =>{
     const user = useSelector(state=>state.User)
     const navigate = useNavigate()
     const layout = ()=>{
-      localStorage.setItem('userInfo','')
+            localStorage.setItem('userInfo','')
             cookie.save('user-info','')
             cookie.save('pikachu-token','')
       navigate('/')
@@ -45,7 +45,7 @@ const Nav = () =>{
     
         <a className={NavModule['nav-item']} href="https://github.com/Liboq/react-markdown-edit" target="_balnk"><img src={Github} alt="github" /></a>
 
-        <Dropdown>
+        <Dropdown  overlay={menu}>
 
       <Space>
       <div className={NavModule['nav-item']}>

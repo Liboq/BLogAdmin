@@ -17,12 +17,10 @@ const Others = () => {
     if (res.status === 200) {
       setData(res.data[0].saveSwiper);
       setCurData(res.data[0].currentSwiper);
-      console.log(res);
     }
   };
   const saveData = () => {
     if (inputVal.trim().length > 0) {
-      console.log("i", inputVal);
       setData([...data, inputVal]);
       setVal("");
       const params = {
@@ -60,7 +58,6 @@ const Others = () => {
   };
 
   const handleDragStart = (e, data) => {
-    console.log("开始拖拽");
     // 保存当前 item 数据，用于在自定义图片中展示
     setDraggableData(data);
 
@@ -82,7 +79,6 @@ const Others = () => {
   };
 
   const handleDragEnd = (e) => {
-    console.log("结束拖拽");
     // 移除拖拽 class 样式
     e.target.classList.remove("list-item-draggable");
 
@@ -92,13 +88,11 @@ const Others = () => {
   };
 
   const handleDragEnter = (e) => {
-    console.log("进入目标元素", e.target.id);
     // 添加拖放图像移动到目标元素的 class 样式
     e.target.classList.add("target-draggable");
   };
 
   const handleDragLeave = (e) => {
-    console.log("拖放离开目标元素");
     e.target.classList.remove("target-draggable");
   };
 
@@ -109,10 +103,8 @@ const Others = () => {
   const handleDrop = async (e, id) => {
     e.target.classList.remove("target-draggable");
     // 获取携带数据
-    console.log(e.dataTransfer.getData("data"));
     const data1 = JSON.parse(e.dataTransfer.getData("data"));
     if (currentData.indexOf(data) === -1) {
-      console.log(2);
       setCurData([...currentData, data1]);
       setData(
         data.filter((item) => {
@@ -131,13 +123,11 @@ const Others = () => {
   };
 
   const handleDragEnterS = (e) => {
-    console.log("进入目标元素", e.target.id);
     // 添加拖放图像移动到目标元素的 class 样式
     e.target.classList.add("target-draggable");
   };
 
   const handleDragLeaveS = (e) => {
-    console.log("拖放离开目标元素");
     e.target.classList.remove("target-draggable");
   };
 
@@ -148,7 +138,6 @@ const Others = () => {
   const handleDropS = async (e, id) => {
     e.target.classList.remove("target-draggable");
     // 获取携带数据
-    console.log(e.dataTransfer.getData("data"));
     const data1 = JSON.parse(e.dataTransfer.getData("data"));
     if (data.indexOf(data1) === -1) {
       setData([...data, data1]);

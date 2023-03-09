@@ -77,7 +77,6 @@ const Markdown = () => {
   })
 }
   const delArticle= (record)=>{
-    console.log('record',record);
     request('post','markdown/delMd',[record['_id']]).then((res)=>{
       if (res.status === 200) {
         findMd()

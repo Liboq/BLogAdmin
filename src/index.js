@@ -23,13 +23,12 @@ import ChinaMap from './pages/layout/echarts/china'
 import Role from './pages/layout/resource/role'
 import Permission from './pages/layout/resource/permission'
 import UserManage from './pages/layout/resource/user'
-
+import { hasPermission } from './utils/hooks'
 
 const store = configStore()
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  
   
     <Provider store={store}>
      <BrowserRouter>
@@ -40,9 +39,8 @@ root.render(
        <Route element = {<PrivateRoute/>}>
         <Route path = '/layout' element={<Layout/>}>
           <Route  index element = {<Home></Home>}></Route>
-          <Route path = 'markdown' element ={<Markdown/>}>
-          </Route>
-          <Route path='addArt' element={<AddArt/>}></Route>
+          {hasPermission(1001)&&<Route  path = 'markdown' element ={<Markdown/>}></Route>}
+          {<Route path='addArt' element={<AddArt/>}></Route>}
           {/* <Route path='editArt/:id' element={<AddArt/>}></Route> */}
           <Route path= "about" element = {<About/>}></Route>
           <Route path= "message" element = {<Message/>}></Route>

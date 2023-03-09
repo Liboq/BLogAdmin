@@ -15,6 +15,8 @@ import {
   import React, { useState } from 'react';
 import Nav from '../../components/home/Nav/nav';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
   
 
   const { Header, Sider, Content } = Layout;
@@ -22,6 +24,74 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
   const Home = () => {
     const navigate = useNavigate()
     const [collapsed, setCollapsed] = useState(false);
+    const state = useSelector(state=>state)
+    const itemList = [
+      {
+        key: '1',
+        icon: <UserOutlined />,
+        label: <> <NavLink to='/layout'>首页</NavLink></>,
+      },
+      {
+        permission:1001,
+        key: '2',
+        icon: <VideoCameraOutlined />,
+        label: <> <NavLink to='/layout/markdown'>文章</NavLink></>,
+      },
+      {
+        key: '3',
+        icon: <UploadOutlined />,
+        label: <> <NavLink to='/layout/about'>关于</NavLink></>,
+      },
+      {
+        key:'4',
+        icon:<MessageOutlined />,
+        label: <> <NavLink to='/layout/message'>留言</NavLink></>
+      },
+      {
+        key:'5',
+        icon:<FileImageOutlined />,
+        label: <> <NavLink to='/layout/gollery'>图库</NavLink></>
+      },
+      {
+        key:'6',
+        icon:<PieChartOutlined />,
+        label: <> 图表</>,
+        children:[{
+          key:'6-1',
+          icon:<EnvironmentFilled />,
+          label:<> <NavLink to='/layout/echarts/chinaMap'>ChinaMap</NavLink></>
+        }]
+      },
+      {
+        key:'7',
+        icon:<ControlOutlined />,
+        label: <> <NavLink to='/layout/others'>首页轮播切换</NavLink></>
+      },
+      {
+        key:'8',
+        icon:<PieChartOutlined />,
+        label: <> 资源分配</>,
+        children:[{
+          key:'8-1',
+          icon:<EnvironmentFilled />,
+          label:<> <NavLink to='/layout/resource/role'>角色管理</NavLink></>
+        },{
+          key:'8-2',
+          icon:<EnvironmentFilled />,
+          label:<> <NavLink to='/layout/resource/permission'>权限管理</NavLink></>
+        },{
+          key:'8-3',
+          icon:<EnvironmentFilled />,
+          label:<> <NavLink to='/layout/resource/user'>用户管理</NavLink></>
+        }]
+      },
+    ].filter(item=>{
+      if(item.permission){
+      return state.Roles.role.includes(item.permission)
+      }else{
+        return true
+      }
+    })
     return (
       <Layout className={layoutStyle['components-layout']}>
         <Sider className={layoutStyle['side']} trigger={null} collapsible collapsed={collapsed}>
@@ -31,66 +101,7 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
             theme="dark"
             mode="inline"
             defaultSelectedKeys={['1']}
-            items={[
-              {
-                key: '1',
-                icon: <UserOutlined />,
-                label: <> <NavLink to='/layout'>首页</NavLink></>,
-              },
-              {
-                key: '2',
-                icon: <VideoCameraOutlined />,
-                label: <> <NavLink to='/layout/markdown'>文章</NavLink></>,
-              },
-              {
-                key: '3',
-                icon: <UploadOutlined />,
-                label: <> <NavLink to='/layout/about'>关于</NavLink></>,
-              },
-              {
-                key:'4',
-                icon:<MessageOutlined />,
-                label: <> <NavLink to='/layout/message'>留言</NavLink></>
-              },
-              {
-                key:'5',
-                icon:<FileImageOutlined />,
-                label: <> <NavLink to='/layout/gollery'>图库</NavLink></>
-              },
-              {
-                key:'6',
-                icon:<PieChartOutlined />,
-                label: <> 图表</>,
-                children:[{
-                  key:'6-1',
-                  icon:<EnvironmentFilled />,
-                  label:<> <NavLink to='/layout/echarts/chinaMap'>ChinaMap</NavLink></>
-                }]
-              },
-              {
-                key:'7',
-                icon:<ControlOutlined />,
-                label: <> <NavLink to='/layout/others'>首页轮播切换</NavLink></>
-              },
-              {
-                key:'8',
-                icon:<PieChartOutlined />,
-                label: <> 资源分配</>,
-                children:[{
-                  key:'8-1',
-                  icon:<EnvironmentFilled />,
-                  label:<> <NavLink to='/layout/resource/role'>角色管理</NavLink></>
-                },{
-                  key:'8-2',
-                  icon:<EnvironmentFilled />,
-                  label:<> <NavLink to='/layout/resource/permission'>权限管理</NavLink></>
-                },{
-                  key:'8-3',
-                  icon:<EnvironmentFilled />,
-                  label:<> <NavLink to='/layout/resource/user'>用户管理</NavLink></>
-                }]
-              },
-            ]}
+            items={itemList}
           />
         </Sider>
         <Layout className={layoutStyle["site-layout"]}>

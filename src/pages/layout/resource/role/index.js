@@ -89,13 +89,11 @@ const Role = () => {
 const getRoleList = async()=>{
     const res = await getRoles()
     if(res.status == 200){
-        console.log(res);
         setDataSource(res.data)
         setCount(res.data.length)
     }
 }
   const handleDelete = async(row) => {
-    console.log(row);
    const  res = await delRole({_id:row._id})
    if(res.status ===200){
     message.success('删除成功')
@@ -134,7 +132,6 @@ const getRoleList = async()=>{
     },
   ];
   const handleAdd = async(values) => {
-    console.log(values);
     const Data = {
       key: count,
       name: values.name,
@@ -154,7 +151,6 @@ const getRoleList = async()=>{
     // setCount(count + 1);
   };
   const handleSave = async (row) => {
-    console.log(row);
     const res = await updateRole({...row})
     if(res.status === 200){
         getRoleList()

@@ -9,18 +9,22 @@ const Permission = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [data, setData] = useState([]);
   const [initKeys, setInitKeys] = useState([]);
+  const roleData = useRef()
 
   useEffect(() => {
     getRoleData();
   }, []);
-  const onTreeSelect = (selectedKeys, info) => {
+  const onTreeSelect = (selectedKeys) => {
     setSelectTree(selectedKeys);
-    const keys = data
+    const keys = roleData.current
       .filter((item) => item.permission.includes(selectedKeys[0]))
       .map((item) => item.name);
     setInitKeys(keys);
     setSelectedRowKeys(keys);
   };
+  useEffect(()=>{
+    roleData.current = data
+  },[data])
   const updateRoles = async () => {
     const addRoleList = selectedRowKeys
       .filter((item) => {
@@ -41,7 +45,6 @@ const Permission = () => {
         permission: selectTree,
       }));
     const params = [...addRoleList, ...delRoleList];
-
     params.forEach((item) => {
       if (item.type === "del") {
         delOneRoles(item);
@@ -50,10 +53,10 @@ const Permission = () => {
         addOneRoles(item);
       }
     });
-    await getRoleData();
+     getRoleData();
     setTimeout(() => {
       onTreeSelect(selectTree);
-    }, 100);
+    }, 200);
   };
   const addOneRoles = async (params) => await addOneRole(params);
   const delOneRoles = async (params) => await delOneRole(params);
@@ -62,6 +65,7 @@ const Permission = () => {
     const res = await getRoles();
     if (res.status === 200) {
       setData(res.data);
+      roleData.current = res.data
       const keys = res.data
         .filter((item) => item.permission.includes(selectTree[0]))
         .map((item) => item.name);
@@ -94,7 +98,7 @@ const Permission = () => {
             <RoleTable
               updateRoles={updateRoles}
               selectTree={selectTree}
-              data={data}
+              data={roleData}
               rowSelection={rowSelection}
             />
           ) : (
@@ -153,7 +157,7 @@ const RoleTable = (props) => {
             ...props.rowSelection,
           }}
           columns={columns}
-          dataSource={props.data}
+          dataSource={props.data.current}
           rowKey={(row) => row.name}
         />
       </div>

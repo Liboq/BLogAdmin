@@ -26,13 +26,11 @@ function Login(props) {
     http("post", "/user/login", data).then((res) => {
       if (res.status === 200) {
         message.success(res.message);
-        cookie.save("pikachu-token", res.token,{path:'/',httpOnly:false,expires});
-        cookie.save("user-info",res.data.id,{path:'/',httpOnly:false,expires})
-
+        cookie.save("pikachu-token", res.token,{httpOnly:false,expires});
+        cookie.save("user-info",res.data.id,{httpOnly:false,expires})
         dispath(getUserToken({token:res.token}))
         dispath(getUserInfo({userName:value.userName,userId:res.data.id}))
-
-        localStorage.setItem('userInfo',JSON.stringify({userName:value.userName}))
+        localStorage.setItem('userInfo',JSON.stringify({userName:value.userName,role:res.data.role}))
         navigate("/layout");
         
       } else {
