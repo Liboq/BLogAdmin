@@ -2,7 +2,8 @@ import { Button, Input, message } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { getAllSwiper, updateSwiper } from "../../../request/swiper";
 import Style from "./index.module.less";
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined } from "@ant-design/icons";
+import { hasPermission } from "../../../utils/hooks";
 const Others = () => {
   const draggableView = useRef(); // 拖拽图像
   const [draggableData, setDraggableData] = useState(1); // 拖拽项的数据
@@ -32,14 +33,14 @@ const Others = () => {
       message.warning("请输入正确的地址");
     }
   };
-  const delItem = (val) =>{ 
-    setData(data.filter(item=> item!==val))
+  const delItem = (val) => {
+    setData(data.filter((item) => item !== val));
     const params = {
-        saveSwiper: data.filter(item=> item!==val),
-        currentSwiper: currentData
-      };
-    updateSwipers(params)
-  }
+      saveSwiper: data.filter((item) => item !== val),
+      currentSwiper: currentData,
+    };
+    updateSwipers(params);
+  };
   const updateSwipers = async (params) => {
     const res = await updateSwiper(params);
     if (res.status === 200) {
@@ -101,6 +102,10 @@ const Others = () => {
   };
 
   const handleDrop = async (e, id) => {
+    if(!hasPermission(100603)){
+      message.warn('您没有权限')
+      return
+    }
     e.target.classList.remove("target-draggable");
     // 获取携带数据
     const data1 = JSON.parse(e.dataTransfer.getData("data"));
@@ -136,6 +141,10 @@ const Others = () => {
   };
 
   const handleDropS = async (e, id) => {
+    if(!hasPermission(100603)){
+      message.warn('您没有权限')
+      return
+    }
     e.target.classList.remove("target-draggable");
     // 获取携带数据
     const data1 = JSON.parse(e.dataTransfer.getData("data"));
@@ -166,20 +175,29 @@ const Others = () => {
           onDragOver={handleDragoverS}
           onDrop={handleDropS}
         >
-          {data.map((item,key) => (
-           <div className={Style["save-li"]}>
-             <li
-              key={key}
-              draggable
-              onDragStart={(e) => handleDragStart(e, item)}
-              onDragEnd={handleDragEnd}
-            >
-              <span>{item}</span>
-              
-            </li>
-            <span onClick={()=>delItem(item)} className={Style["del-btn"]}><CloseOutlined /></span>
-           </div>
-
+          {data.map((item, key) => (
+            <div className={Style["save-li"]}>
+              <li
+                key={key}
+                draggable
+                onDragStart={(e) => handleDragStart(e, item)}
+                onDragEnd={handleDragEnd}
+              >
+                <span>{item}</span>
+              </li>
+              <span
+                onClick={() => {
+                  if (!hasPermission(100601)) {
+                    message.warn("您没有权限");
+                    return;
+                  }
+                  delItem(item);
+                }}
+                className={Style["del-btn"]}
+              >
+                <CloseOutlined />
+              </span>
+            </div>
           ))}
         </div>
         <div
@@ -193,7 +211,12 @@ const Others = () => {
             value={inputVal}
             className={Style["form-input"]}
           ></Input>
-          <Button onClick={() => saveData()} type="primary">
+          <Button onClick={() => {
+            if(!hasPermission(100602)){
+              message.warn('您没有权限')
+              return
+            }
+            saveData()}} type="primary">
             保存
           </Button>
         </div>

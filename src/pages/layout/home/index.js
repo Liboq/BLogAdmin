@@ -20,6 +20,7 @@ import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import Time from "../../../components/home/Time";
 import { getAllMes } from "../../../request/message";
 import { getAllGollery } from "../../../request/gollery";
+import { hasPermission } from "../../../utils/hooks";
 
 moment.locale("zh-cn");
 
@@ -87,7 +88,7 @@ const Home = () => {
   const [editeValue, setEditeVal] = useState("");
   // 获取想要编辑的id
   const [editId, setEditId] = useState();
-  const [message, setMes] = useState([]);
+  const [messages, setMes] = useState([]);
   const [gollery, setGollery] = useState(1)
 
 
@@ -308,7 +309,7 @@ const Home = () => {
           <div className={Style["notice"]}>公告</div>
         </div>
         <div className={Style["cards"]}>
-          <Cards gollery={gollery} message ={message} numbers={users.length} arts={arts} />
+          <Cards gollery={gollery} message ={messages} numbers={users.length} arts={arts} />
         </div>
         <div className={Style["dataSet"]}>
           <div
@@ -328,7 +329,13 @@ const Home = () => {
                 />
               </Col>
               <Col style={{ marginRight: "10px" }} span={4}>
-                <Button onClick={addTip} type="primary">
+               <Button onClick={()=>{
+                if(!hasPermission(100001)){
+                  message.warn('您没有权限')
+                  return
+                }
+                addTip()}
+                } type="primary">
                   新建
                 </Button>
               </Col>
@@ -339,6 +346,10 @@ const Home = () => {
                   <span  key={item.id}>
                     <Tag
                       onDoubleClick={() => {
+                        if(!hasPermission(100003)){
+                          message.warn('您没有权限')
+                          return
+                        }
                         showTipModal();
                         setEditId(item.id);
                         setEditeVal(item.tipName);
@@ -347,6 +358,10 @@ const Home = () => {
                       color={item.color ? item.color : "#f50"}
                       closable
                       onClose={(e) => {
+                        if(!hasPermission(100002)){
+                          message.warn('您没有权限')
+                          return
+                        }
                         e.preventDefault();
                         delTip(item.id);
                       }}
@@ -370,7 +385,12 @@ const Home = () => {
                 />
               </Col>
               <Col style={{ marginRight: "10px" }} span={4}>
-                <Button onClick={addCategory} type="primary">
+                <Button onClick={()=>{
+                  if(!hasPermission(100004)){
+                    message.warn('您没有权限')
+                    return
+                  }
+                  addCategory()}} type="primary">
                   新建
                 </Button>
               </Col>
@@ -385,6 +405,10 @@ const Home = () => {
                   <div>
                     <Button
                       onClick={() => {
+                        if(!hasPermission(100006)){
+                          message.warn('您没有权限')
+                          return
+                        }
                         showCategoryModal();
                         setEditId(item.id);
                         setEditeVal(item.categoryName);
@@ -392,7 +416,12 @@ const Home = () => {
                     >
                       <EditFilled />
                     </Button>
-                    <Button onClick={() => delCategory(item.id)}>
+                    <Button onClick={() => {
+                      if(!hasPermission(100005)){
+                        message.warn('您没有权限')
+                        return
+                      }
+                      delCategory(item.id)}}>
                       <DeleteFilled />
                     </Button>
                   </div>

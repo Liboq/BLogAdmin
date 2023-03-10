@@ -81,6 +81,11 @@ export const permmsionList = [
                 status:100403,
                 name:'删除'
             },
+            {
+                status:100404,
+                name:'查看图库'
+            },
+            
         ]
     }, 
     {

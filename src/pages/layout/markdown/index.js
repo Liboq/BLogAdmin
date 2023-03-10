@@ -17,6 +17,7 @@ import Style from "./index.module.less";
 import Column from "antd/lib/table/Column";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { hasPermission } from "../../../utils/hooks";
 
 const Markdown = () => {
   const state =useSelector(state=>state)
@@ -196,6 +197,10 @@ const Markdown = () => {
               <Button
                 type="primary"
                 onClick={() => {
+                  if(!hasPermission(100101)){
+                    message.warn('您没有权限')
+                    return
+                  }
                   navigate("/layout/addArt");
                 }}
               >
@@ -244,12 +249,22 @@ const Markdown = () => {
               key="action"
               render={(_, record) => (
                 <Space size="middle">
-                  <Button type="primary">
-                    <NavLink to={`/layout/addArt`} state={{ id: record._id }}>
+                  <Button type="primary"onClick={()=>{
+                    if(!hasPermission(100102)){
+                      message.warn('您没有权限')
+                      return
+                    }
+                  }}>
+                    {hasPermission(100102)?<NavLink to={`/layout/addArt`} state={{ id: record._id }}>
                       编辑
-                    </NavLink>
+                    </NavLink>:'编辑'}
                   </Button>
-                  <Button onClick={()=>delArticle(record)} type="danger">删除</Button>
+                  <Button onClick={()=>{
+                    if(!hasPermission(100103)){
+                      message.warn('您没有权限')
+                      return
+                    }
+                    delArticle(record)}} type="danger">删除</Button>
                 </Space>
               )}
             />

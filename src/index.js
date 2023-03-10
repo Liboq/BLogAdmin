@@ -45,7 +45,7 @@ root.render(
           {hasPermission(1002)&&<Route path= "about" element = {<About/>}></Route>}
           {hasPermission(1003)&&<Route path= "message" element = {<Message/>}></Route>}
           {hasPermission(1004)&&<Route path= "gollery" element = {<Gollery/>}></Route>}
-          {hasPermission(100401)&&<Route path= "addGollery" element = {<AddGollery/>}></Route>}
+          {hasPermission(100404)&&<Route path= "addGollery" element = {<AddGollery/>}></Route>}
           {hasPermission(1005)&&<Route path= "echarts/chinaMap" element = {<ChinaMap/>}></Route>}
           {hasPermission(1006)&&<Route path= "others" element = {<Others/>}></Route>}
           {hasPermission(100701)&&<Route path= "resource/role" element = {<Role/>}></Route>}

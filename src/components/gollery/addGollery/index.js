@@ -8,8 +8,9 @@ import {
   createGollery,
   getOneGollery,
   updateGollery,
-  delGollery
+  delGollery,
 } from "../../../request/gollery";
+import { hasPermission } from "../../../utils/hooks";
 const { TextArea } = Input;
 const AddGollery = (props) => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const AddGollery = (props) => {
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
   const [coverPath, setCoverPath] = useState("");
-  const [path, setPath] = useState('');
+  const [path, setPath] = useState("");
   const _id = search.get("id");
   useEffect(() => {
     if (_id) {
@@ -27,12 +28,12 @@ const AddGollery = (props) => {
 
   const getOneGollerys = async () => {
     const res = await getOneGollery({ _id });
-    if(res.status ===200){
-      setType(res.data[0].type)
-      setCoverPath(res.data[0].coverPath)
-      setPath(res.data[0].path.join(','))
-      setDescription(res.data[0].description)
-      message.info(res.message)
+    if (res.status === 200) {
+      setType(res.data[0].type);
+      setCoverPath(res.data[0].coverPath);
+      setPath(res.data[0].path.join(","));
+      setDescription(res.data[0].description);
+      message.info(res.message);
     }
   };
   const updateGollerys = async () => {
@@ -42,14 +43,14 @@ const AddGollery = (props) => {
     if (coverPath.trim().length <= 0) {
       return message.error("请输入正确的封面");
     }
-    if (description.trim().length<=0) {
+    if (description.trim().length <= 0) {
       return message.error("请输入正确的描述");
     }
     if (path && path.split(",").length <= 0) {
       return message.error("请输入正确的图片");
     }
     const data = {
-      id:_id,
+      id: _id,
       type,
       coverPath,
       description,
@@ -67,7 +68,7 @@ const AddGollery = (props) => {
     if (coverPath.trim().length <= 0) {
       return message.error("请输入正确的封面");
     }
-    if (description.trim().length<=0) {
+    if (description.trim().length <= 0) {
       return message.error("请输入正确的描述");
     }
     if (path && path.split(",").length <= 0) {
@@ -83,7 +84,6 @@ const AddGollery = (props) => {
     if (res.status === 200) {
       navigate("/layout/gollery");
     }
-
   };
   const delGollerys = async () => {
     const res = await delGollery({ _id });
@@ -99,7 +99,7 @@ const AddGollery = (props) => {
           {_id ? (
             <div className={Style["addGollery-head-content"]}>
               <Button
-                onClick={()=>navigate("/layout/gollery")}
+                onClick={() => navigate("/layout/gollery")}
                 type="primary"
                 className={Style["addGollery-head-content-btn"]}
               >
@@ -107,14 +107,26 @@ const AddGollery = (props) => {
               </Button>
               <Button
                 type="danger"
-                onClick={()=>updateGollerys()}
+                onClick={() => {
+                  if (!hasPermission(100402)) {
+                    message.warn("您没有权限");
+                    return;
+                  }
+                  updateGollerys();
+                }}
                 className={Style["addGollery-head-content-btn"]}
               >
                 更新
               </Button>
               <Button
                 type="danger"
-                onClick={()=>delGollerys()}
+                onClick={() => {
+                  if (!hasPermission(100403)) {
+                    message.warn("您没有权限");
+                    return;
+                  }
+                  delGollerys();
+                }}
                 className={Style["addGollery-head-content-delBtn"]}
               >
                 删除
@@ -125,14 +137,14 @@ const AddGollery = (props) => {
               <Button
                 type="primary"
                 className={Style["addGollery-head-content-btn"]}
-                onClick={()=>navigate("/layout/gollery")}
+                onClick={() => navigate("/layout/gollery")}
               >
                 返回
               </Button>
               <Button
                 type="danger"
                 className={Style["addGollery-head-content-btn"]}
-                onClick={()=>createGollerys()}
+                onClick={() => createGollerys()}
               >
                 添加
               </Button>
@@ -178,11 +190,11 @@ const AddGollery = (props) => {
           <div className={Style["addGollery-content-imgs"]}>
             <ul>
               {path.trim() && path.split(",")
-                ? path.split(",").map((item,index) => {
+                ? path.split(",").map((item, index) => {
                     return (
                       <>
                         <li
-                        key={index}
+                          key={index}
                           style={{
                             backgroundImage: `url(${item})`,
                           }}
