@@ -151,7 +151,7 @@ const getRoleList = async()=>{
     // setCount(count + 1);
   };
   const handleSave = async (row) => {
-    const res = await updateRole({...row})
+    const res = await updateRole(row)
     if(res.status === 200){
         getRoleList()
     }else{

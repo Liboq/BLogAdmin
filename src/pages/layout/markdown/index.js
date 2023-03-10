@@ -249,7 +249,7 @@ const Markdown = () => {
               key="action"
               render={(_, record) => (
                 <Space size="middle">
-                  <Button type="primary"onClick={()=>{
+                  <Button key={record._id+'edit'} type="primary"onClick={()=>{
                     if(!hasPermission(100102)){
                       message.warn('您没有权限')
                       return
@@ -259,7 +259,7 @@ const Markdown = () => {
                       编辑
                     </NavLink>:'编辑'}
                   </Button>
-                  <Button onClick={()=>{
+                  <Button key={record._id+"del"} onClick={()=>{
                     if(!hasPermission(100103)){
                       message.warn('您没有权限')
                       return

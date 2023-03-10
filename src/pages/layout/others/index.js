@@ -176,7 +176,7 @@ const Others = () => {
           onDrop={handleDropS}
         >
           {data.map((item, key) => (
-            <div className={Style["save-li"]}>
+            <div key={key} className={Style["save-li"]}>
               <li
                 key={key}
                 draggable
