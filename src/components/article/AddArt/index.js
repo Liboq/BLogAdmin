@@ -15,7 +15,6 @@ import moment from "moment";
 import Style from "./index.module.less";
 import Markdown from "../../markdown/markdown";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import ImgCrop from "antd-img-crop";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -127,6 +126,8 @@ const AddArt = () => {
       isDraft,
       category: kinds,
       image_main:imageUrl,
+      content:'',
+      draft:''
     };
     if (isDraft === 1) {
       data["content"] = artContent;
@@ -228,7 +229,6 @@ const AddArt = () => {
             </Col>
 
             <Col span={2} style={{ margin: " 0 20px" }}>
-              <ImgCrop rotate>
                 <Upload
                   style={{ display: "flex", justifyContent: "center" }}
                   name="avatar"
@@ -248,7 +248,6 @@ const AddArt = () => {
                     uploadButton
                   )}
                 </Upload>
-              </ImgCrop>{" "}
             </Col>
             <Col span={1} style={{ margin: " 0 20px" }}>
               <Button
