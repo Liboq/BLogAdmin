@@ -5,29 +5,17 @@ import request from "../../../utils/request";
 import Style from './index.module.less'
 
 // Time
-const Time = () => {
-    const [ip, setIp] = useState("");
+const Time = (props) => {
     const [time, setTime] = useState(moment().format("YYYY-MM-DD HH:mm:ss"));
     setInterval(() => {
       setTime(moment().format("YYYY-MM-DD HH:mm:ss"));
     }, 1000);
-    const getUserIp = () => {
-      request("get", "user/getUserIp", {}).then((res) => {
-        if (res.status === 200) {
-          setIp(res.data.ip);
-        } else {
-          message.error(res.message);
-        }
-      });
-    };
-    useEffect(() => {
-      getUserIp();
-    }, []);
+
     return (
       <>
         <div className={Style["time-content"]}>
           <div className={Style["time-date"]}>{time}</div>
-          <span className={Style["time-ip"]}>ip地址：{ip}</span>
+          <span className={Style["time-ip"]}>ip地址：{props.ip}</span>
         </div>
       </>
     );

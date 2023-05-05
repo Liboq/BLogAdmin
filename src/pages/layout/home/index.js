@@ -28,14 +28,17 @@ moment.locale("zh-cn");
 const Welcome = () => {
   const nowTime = new Date().getHours();
   const userName = useSelector((state) => state.User).userName;
-  const [hot,setHot] = useState({})
-  useEffect(()=>{
-    hitokoto()
-  },[userName])
+  const [hot, setHot] = useState({});
+  useEffect(() => {
+    hitokoto();
+  }, [userName]);
   const hitokoto = async () => {
-    const res =await request('get','https://v1.hitokoto.cn/?encode=json&lang=cn')
-    setHot(res)
-  }
+    const res = await request(
+      "get",
+      "https://v1.hitokoto.cn/?encode=json&lang=cn"
+    );
+    setHot(res);
+  };
 
   const timeZh = () => {
     if (nowTime < 12 && nowTime >= 0) {
@@ -63,7 +66,7 @@ const Welcome = () => {
           </div>
           <div className={Style["welcome-wisdom"]}>
             <div className={Style["poem"]}>{hot.hitokoto}</div>
-            <div>——{hot.from_who||userName}</div>
+            <div>——{hot.from_who || userName}</div>
           </div>
         </div>
       </div>
@@ -73,7 +76,7 @@ const Welcome = () => {
 
 // home
 const Home = () => {
-  const state = useSelector(state=>state)
+  const state = useSelector((state) => state);
   const [ecDom, setEchom] = useState("");
   const [users, setUsers] = useState([]);
   const [arts, setArts] = useState([]);
@@ -89,8 +92,8 @@ const Home = () => {
   // 获取想要编辑的id
   const [editId, setEditId] = useState();
   const [messages, setMes] = useState([]);
-  const [gollery, setGollery] = useState(1)
-
+  const [gollery, setGollery] = useState(1);
+  const [poem, setPoem] = useState("");
 
   const handleOk = () => {
     editCategory();
@@ -114,13 +117,17 @@ const Home = () => {
     setEditeVal("");
   };
   useEffect(() => {
-   
-    getMessages()
+    require("jinrishici").load((res) => {
+      setPoem(res);
+    });
+  }, []);
+  useEffect(() => {
+    getMessages();
     getAllUser();
     getAllArticle();
     getTips();
     getCategorys();
-    getGolleryLen()
+    getGolleryLen();
     var echarts = document.getElementById("echarts");
     setEchom(echarts);
   }, [state]);
@@ -131,12 +138,10 @@ const Home = () => {
         getTips();
         message.success(res.message);
         setTipName("");
-      }else{
-      message.error(res.message);
+      } else {
+        message.error(res.message);
       }
     });
-
-
   };
   const editTip = () => {
     if (editTitle === "编辑文章标签") {
@@ -145,9 +150,8 @@ const Home = () => {
         if (res.status === 200) {
           getTips();
           message.success(res.message);
-        }else{
-        message.error(res.message);
-
+        } else {
+          message.error(res.message);
         }
       });
     }
@@ -157,9 +161,8 @@ const Home = () => {
       if (res.status === 200) {
         getTips();
         message.success(res.message);
-      }else{
-      message.error(res.message);
-
+      } else {
+        message.error(res.message);
       }
     });
   };
@@ -169,9 +172,8 @@ const Home = () => {
         getCategorys();
         message.success(res.message);
         setCategoryName("");
-      }else{
-      message.error(res.message);
-        
+      } else {
+        message.error(res.message);
       }
     });
   };
@@ -182,9 +184,8 @@ const Home = () => {
         if (res.status === 200) {
           getCategorys();
           message.success(res.message);
-        }else{
-        message.error(res.message);
-
+        } else {
+          message.error(res.message);
         }
       });
     }
@@ -237,14 +238,14 @@ const Home = () => {
       }
     });
   };
-  const getMessages =  async() =>{
-   const res =  await getAllMes()
-    setMes(res.data.length)
-  }
-  const getGolleryLen = async()=>{
-    const res = await getAllGollery()
-    setGollery(res.data.length)
-  }
+  const getMessages = async () => {
+    const res = await getAllMes();
+    setMes(res.data.length);
+  };
+  const getGolleryLen = async () => {
+    const res = await getAllGollery();
+    setGollery(res.data.length);
+  };
   // echarts
   if (ecDom !== "") {
     const myChart = echarts.init(ecDom);
@@ -304,12 +305,22 @@ const Home = () => {
             <Welcome />
           </div>
           <div className={Style["time"]}>
-            <Time />
+            <Time ip={poem.ipAddress} />
           </div>
-          <div className={Style["notice"]}>公告</div>
+          <div className={Style["notice"]}>
+          {poem.data&&<div className={Style["notice-title"]}>{poem.data.origin.title}    <span className={Style["notice-author"]}> &nbsp;{poem.data.origin.author}</span></div>}
+            {poem.data&&poem.data.origin.content.map(item=>{
+              return <div className={Style["notice-item"]}>{item}</div>
+            })}
+          </div>
         </div>
         <div className={Style["cards"]}>
-          <Cards gollery={gollery} message ={messages} numbers={users.length} arts={arts} />
+          <Cards
+            gollery={gollery}
+            message={messages}
+            numbers={users.length}
+            arts={arts}
+          />
         </div>
         <div className={Style["dataSet"]}>
           <div
@@ -319,7 +330,7 @@ const Home = () => {
           ></div>
           <div className={Style["tips"]}>
             <div>文章标签管理</div>
-            <Row >
+            <Row>
               <Col span={18} style={{ margin: " 0 10px 0 0 " }}>
                 <Input
                   onChange={(e) => {
@@ -329,13 +340,16 @@ const Home = () => {
                 />
               </Col>
               <Col style={{ marginRight: "10px" }} span={4}>
-               <Button onClick={()=>{
-                if(!hasPermission(100001)){
-                  message.warn('您没有权限')
-                  return
-                }
-                addTip()}
-                } type="primary">
+                <Button
+                  onClick={() => {
+                    if (!hasPermission(100001)) {
+                      message.warn("您没有权限");
+                      return;
+                    }
+                    addTip();
+                  }}
+                  type="primary"
+                >
                   新建
                 </Button>
               </Col>
@@ -343,24 +357,23 @@ const Home = () => {
             <div>
               {tips.map((item) => {
                 return (
-                  <span  key={item.id}>
+                  <span key={item.id}>
                     <Tag
                       onDoubleClick={() => {
-                        if(!hasPermission(100003)){
-                          message.warn('您没有权限')
-                          return
+                        if (!hasPermission(100003)) {
+                          message.warn("您没有权限");
+                          return;
                         }
                         showTipModal();
                         setEditId(item.id);
                         setEditeVal(item.tipName);
                       }}
-                     
                       color={item.color ? item.color : "#f50"}
                       closable
                       onClose={(e) => {
-                        if(!hasPermission(100002)){
-                          message.warn('您没有权限')
-                          return
+                        if (!hasPermission(100002)) {
+                          message.warn("您没有权限");
+                          return;
                         }
                         e.preventDefault();
                         delTip(item.id);
@@ -385,12 +398,16 @@ const Home = () => {
                 />
               </Col>
               <Col style={{ marginRight: "10px" }} span={4}>
-                <Button onClick={()=>{
-                  if(!hasPermission(100004)){
-                    message.warn('您没有权限')
-                    return
-                  }
-                  addCategory()}} type="primary">
+                <Button
+                  onClick={() => {
+                    if (!hasPermission(100004)) {
+                      message.warn("您没有权限");
+                      return;
+                    }
+                    addCategory();
+                  }}
+                  type="primary"
+                >
                   新建
                 </Button>
               </Col>
@@ -405,9 +422,9 @@ const Home = () => {
                   <div>
                     <Button
                       onClick={() => {
-                        if(!hasPermission(100006)){
-                          message.warn('您没有权限')
-                          return
+                        if (!hasPermission(100006)) {
+                          message.warn("您没有权限");
+                          return;
                         }
                         showCategoryModal();
                         setEditId(item.id);
@@ -416,12 +433,15 @@ const Home = () => {
                     >
                       <EditFilled />
                     </Button>
-                    <Button onClick={() => {
-                      if(!hasPermission(100005)){
-                        message.warn('您没有权限')
-                        return
-                      }
-                      delCategory(item.id)}}>
+                    <Button
+                      onClick={() => {
+                        if (!hasPermission(100005)) {
+                          message.warn("您没有权限");
+                          return;
+                        }
+                        delCategory(item.id);
+                      }}
+                    >
                       <DeleteFilled />
                     </Button>
                   </div>
