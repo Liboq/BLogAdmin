@@ -88,6 +88,9 @@ const hasJsxRuntime = (() => {
     return false;
   }
 })();
+// gzip插件
+const CompressionPlugin = require("compression-webpack-plugin");
+
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -601,6 +604,13 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean),
     },
     plugins: [
+      new CompressionPlugin({
+        filename: '[path][base].gz',
+        algorithm: 'gzip', // 算法       
+        test: new RegExp('\\.(js|css|jpg|png)$'), // 压缩 js 与 css
+        threshold: 1, // 只处理比这个值大的资源。按字节计算
+        minRatio: 0.8 // 只有压缩率比这个值小的资源才会被处理
+      }),      
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
