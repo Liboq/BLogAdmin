@@ -58,7 +58,6 @@ const AddArt = () => {
   const location = useLocation();
   const [oldArt, setOld] = useState();
   const [artId, setArtId] = useState();
-  const state = useSelector((state) => state);
 
   let oldContent;
   let artContent;

@@ -21,7 +21,7 @@ const publicUrlOrPath = getPublicUrlOrPath(
   process.env.PUBLIC_URL
 );
 
-const buildPath = process.env.BUILD_PATH || 'pikachu';
+const buildPath = process.env.BUILD_PATH || 'pikachu-admin';
 
 const moduleFileExtensions = [
   'web.mjs',
