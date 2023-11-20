@@ -1,7 +1,7 @@
 .login-content{
   height: 100%;
   width: 100%;
-  background: url('../../../public/login_bgc.jpg') no-repeat ;
+  background: url('../../../public/bgc_img.webp') no-repeat ;
   background-size:cover;
   display:flex;
   justify-content: center;
