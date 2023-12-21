@@ -1,0 +1,9 @@
+.eslintrc.js
+build/*.js
+coverage
+.vscode/*
+public/*
+pikachu-admin/*
+config/*
+scripts/*
+*.test.js

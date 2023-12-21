@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Input, message } from "antd";
 import { useEffect, useState } from "react";
 import Style from "./index.module.less";
@@ -191,17 +190,17 @@ const AddGollery = (props) => {
             <ul>
               {path.trim() && path.split(",")
                 ? path.split(",").map((item, index) => {
-                    return (
-                      <>
-                        <li
-                          key={index}
-                          style={{
-                            backgroundImage: `url(${item})`,
-                          }}
-                        ></li>
-                      </>
-                    );
-                  })
+                  return (
+                    <>
+                      <li
+                        key={index}
+                        style={{
+                          backgroundImage: `url(${item})`,
+                        }}
+                      ></li>
+                    </>
+                  );
+                })
                 : ""}
             </ul>
           </div>

@@ -1,0 +1,8 @@
+{
+	// eslint主要功能设定规范,捕获不规范的错误等 美化代码或者格式化代码功能交给prettier
+	"eslint.format.enable": false,
+	//打开保存格式化功能(保存代码的时候自动格式化)
+	"editor.formatOnSave": true,
+	//使用 prettier  作为默认格式化程序
+	"editor.defaultFormatter": "esbenp.prettier-vscode"
+}
