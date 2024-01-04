@@ -56,7 +56,7 @@ const AddArt = () => {
   const [imageUrl, setImageUrl] = useState();
   const [loading, setLoading] = useState(false);
   const location = useLocation();
-  const [oldArt, setOld] = useState();
+  const [oldArt, setOld] = useState("");
   const [artId, setArtId] = useState();
 
   let oldContent;
@@ -89,11 +89,11 @@ const AddArt = () => {
       }
       request("get", "category/getAll", {}).then((res) => {
         if (res.status === 200) {
- 
+
           setCategorys(res.data);
         } else {
           message.error(res.message);
-    
+
         }
       });
     });
@@ -124,9 +124,9 @@ const AddArt = () => {
       time,
       isDraft,
       category: kinds,
-      image_main:imageUrl,
-      content:'',
-      draft:''
+      image_main: imageUrl,
+      content: '',
+      draft: ''
     };
     if (isDraft === 1) {
       data["content"] = artContent;
@@ -228,25 +228,25 @@ const AddArt = () => {
             </Col>
 
             <Col span={2} style={{ margin: " 0 20px" }}>
-                <Upload
-                  style={{ display: "flex", justifyContent: "center" }}
-                  name="avatar"
-                  listType="picture-card"
-                  className="avatar-uploader"
-                  showUploadList={false}
-                  beforeUpload={beforeUpload}
-                  onChange={handleChange}
-                >
-                  {imageUrl ? (
-                    <Image
-                      src={imageUrl}
-                      alt="avatar"
-                      style={{ width: "100%" }}
-                    />
-                  ) : (
-                    uploadButton
-                  )}
-                </Upload>
+              <Upload
+                style={{ display: "flex", justifyContent: "center" }}
+                name="avatar"
+                listType="picture-card"
+                className="avatar-uploader"
+                showUploadList={false}
+                beforeUpload={beforeUpload}
+                onChange={handleChange}
+              >
+                {imageUrl ? (
+                  <Image
+                    src={imageUrl}
+                    alt="avatar"
+                    style={{ width: "100%" }}
+                  />
+                ) : (
+                  uploadButton
+                )}
+              </Upload>
             </Col>
             <Col span={1} style={{ margin: " 0 20px" }}>
               <Button

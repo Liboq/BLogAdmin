@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { getAllGollery } from "../../../request/gollery";
 import Style from "./index.module.less";
 import { useNavigate } from "react-router-dom";
-import { hasPermission } from "../../../utils/hooks";
+import usePermission from "../../../utils/hooks";
 const CoverMap = (props) => {
+  const { hasPermission } = usePermission()
   if (props.coverList.length > 0) {
     return props.coverList.map((item) => {
       return (
@@ -29,6 +30,8 @@ const CoverMap = (props) => {
 
 const Gollery = () => {
   const [coverList, setCoverList] = useState("");
+  const { hasPermission } = usePermission()
+
   const getAllGollerys = async () => {
     const res = await getAllGollery();
     if (res.status === 200) {

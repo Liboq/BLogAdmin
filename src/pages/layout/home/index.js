@@ -20,7 +20,7 @@ import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import Time from "../../../components/home/Time";
 import { getAllMes } from "../../../request/message";
 import { getAllGollery } from "../../../request/gollery";
-import { hasPermission } from "../../../utils/hooks";
+import usePermission from "../../../utils/hooks";
 
 moment.locale("zh-cn");
 
@@ -76,6 +76,7 @@ const Welcome = () => {
 
 // home
 const Home = () => {
+  const { hasPermission } = usePermission()
   const state = useSelector((state) => state);
   const [ecDom, setEchom] = useState("");
   const [users, setUsers] = useState([]);
@@ -308,8 +309,8 @@ const Home = () => {
             <Time ip={poem.ipAddress} />
           </div>
           <div className={Style["notice"]}>
-          {poem.data&&<div className={Style["notice-title"]}>{poem.data.origin.title}    <span className={Style["notice-author"]}> &nbsp;{poem.data.origin.author}</span></div>}
-            {poem.data&&poem.data.origin.content.map(item=>{
+            {poem.data && <div className={Style["notice-title"]}>{poem.data.origin.title}    <span className={Style["notice-author"]}> &nbsp;{poem.data.origin.author}</span></div>}
+            {poem.data && poem.data.origin.content.map(item => {
               return <div className={Style["notice-item"]}>{item}</div>
             })}
           </div>

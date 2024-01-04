@@ -17,10 +17,11 @@ import Style from "./index.module.less";
 import Column from "antd/lib/table/Column";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { hasPermission } from "../../../utils/hooks";
+import usePermission from "../../../utils/hooks";
 
 const Markdown = () => {
-  const state =useSelector(state=>state)
+  const { hasPermission } = usePermission()
+  const state = useSelector(state => state)
   const [total, setTotal] = useState();
   const [tips, setTips] = useState([]);
   const [categorys, setCategorys] = useState([]);
@@ -48,10 +49,11 @@ const Markdown = () => {
     };
     request("post", "markdown/getRightAll", data).then((res) => {
       let Data = [];
+      console.log(categorys);
       if (tips.length >= 0 && categorys.length >= 0) {
         Data = res.data.map((item) => {
           item["Date"] = item.date + "  " + item.time;
-          item["categorys"] = categorys[item.category]&&categorys[item.category].categoryName;
+          item["categorys"] = categorys.filter(cItem => cItem.id == item.category)[0]?.categoryName;
           item["tipArr"] = item.tips.map((val) => {
             let curIndex;
             tips.forEach((vals, index) => {
@@ -59,7 +61,7 @@ const Markdown = () => {
                 curIndex = index;
               }
             });
-            return tips[curIndex]&&tips[curIndex].tipName;
+            return tips[curIndex] && tips[curIndex].tipName;
           });
           //  URL
           item["URL"] = `https://liboqiao.top/article?titleEn=${item.titleEn}`;
@@ -70,15 +72,15 @@ const Markdown = () => {
       setArticle(Data);
     });
   };
-  const getTotal = () =>{
+  const getTotal = () => {
     request("get", "markdown/getAll").then((res) => {
-      if (res.status ===200) {
+      if (res.status === 200) {
         setTotal(res.data.length);
       }
-  })
-}
-  const delArticle= (record)=>{
-    request('post','markdown/delMd',[record['_id']]).then((res)=>{
+    })
+  }
+  const delArticle = (record) => {
+    request('post', 'markdown/delMd', [record['_id']]).then((res) => {
       if (res.status === 200) {
         findMd()
       } else {
@@ -100,7 +102,7 @@ const Markdown = () => {
     });
     request("get", "category/getAll", {}).then((res) => {
       if (res.status === 200) {
- 
+
         setCategorys(res.data);
       } else {
         message.error(res.message);
@@ -197,7 +199,7 @@ const Markdown = () => {
               <Button
                 type="primary"
                 onClick={() => {
-                  if(!hasPermission(100101)){
+                  if (!hasPermission(100101)) {
                     message.warn('您没有权限')
                     return
                   }
@@ -249,22 +251,23 @@ const Markdown = () => {
               key="action"
               render={(_, record) => (
                 <Space size="middle">
-                  <Button key={record._id+'edit'} type="primary"onClick={()=>{
-                    if(!hasPermission(100102)){
+                  <Button key={record._id + 'edit'} type="primary" onClick={() => {
+                    if (!hasPermission(100102)) {
                       message.warn('您没有权限')
                       return
                     }
                   }}>
-                    {hasPermission(100102)?<NavLink to={`/layout/addArt`} state={{ id: record._id }}>
+                    {hasPermission(100102) ? <NavLink to={`/layout/addArt`} state={{ id: record._id }}>
                       编辑
-                    </NavLink>:'编辑'}
+                    </NavLink> : '编辑'}
                   </Button>
-                  <Button key={record._id+"del"} onClick={()=>{
-                    if(!hasPermission(100103)){
+                  <Button key={record._id + "del"} onClick={() => {
+                    if (!hasPermission(100103)) {
                       message.warn('您没有权限')
                       return
                     }
-                    delArticle(record)}} type="danger">删除</Button>
+                    delArticle(record)
+                  }} type="danger">删除</Button>
                 </Space>
               )}
             />

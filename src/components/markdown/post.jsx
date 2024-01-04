@@ -3,12 +3,9 @@ import React, { useEffect, useRef } from "react";
 // 编辑区
 function Posts(props) {
   const inputRef = useRef(null);
+  console.log(props);
   useEffect(() => {
-    if (!props.content) {
-      inputRef.current.innerHTML= ''
-    } else {
       inputRef.current.innerHTML = props.content;
-    }
   }, [props.content]);
   return (
     <div

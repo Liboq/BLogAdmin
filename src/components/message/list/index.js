@@ -1,10 +1,11 @@
 import React from "react";
 import { Button, Space, Table, message } from "antd";
 import moment from "moment";
-import { hasPermission } from "../../../utils/hooks";
-const { Column} = Table;
+import usePermission from "../../../utils/hooks";
+const { Column } = Table;
 
 const App = (props) => {
+  const { hasPermission } = usePermission()
   const dataList = props.dataList.map((item) => {
     item.type = item.pid === 0 ? "留言板" : "留言板【回复】";
     item.date = moment(item.date).format("YYYY-MM-DD hh:mm:ss");

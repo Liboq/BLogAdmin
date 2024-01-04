@@ -10,8 +10,7 @@ function Markdown(props) {
   
   useEffect(()=>{
     setText(props.oldContent)
-
-  },[props])
+  },[props.oldContent])
   const [text, setText] = useState('')
   props.getMd(text)
   

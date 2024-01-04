@@ -23,43 +23,65 @@ import ChinaMap from './pages/layout/echarts/china'
 import Role from './pages/layout/resource/role'
 import Permission from './pages/layout/resource/permission'
 import UserManage from './pages/layout/resource/user'
-import { hasPermission } from './utils/hooks'
+import AuthRoute from './router'
 
 const store = configStore()
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  
-    <Provider store={store}>
-     <BrowserRouter>
-     <Routes >
-       <Route path = '/' element = {<App/>} />
-       <Route path = '/user/login' element = {<Login/>} />
-       {/* <Route path = '/user/regist' element = {<Regist/>} /> */}
-       <Route element = {<PrivateRoute/>}>
-        <Route path = '/layout' element={<Layout/>}>
-          <Route  index element = {<Home></Home>}></Route>
-          {hasPermission(1001)&&<Route  path = 'markdown' element ={<Markdown/>}></Route>}
-          {hasPermission(100101)&&<Route path='addArt' element={<AddArt/>}></Route>}
-          {/* <Route path='editArt/:id' element={<AddArt/>}></Route> */}
-          {hasPermission(1002)&&<Route path= "about" element = {<About/>}></Route>}
-          {hasPermission(1003)&&<Route path= "message" element = {<Message/>}></Route>}
-          {hasPermission(1004)&&<Route path= "gollery" element = {<Gollery/>}></Route>}
-          {hasPermission(100404)&&<Route path= "addGollery" element = {<AddGollery/>}></Route>}
-          {hasPermission(1005)&&<Route path= "echarts/chinaMap" element = {<ChinaMap/>}></Route>}
-          {hasPermission(1006)&&<Route path= "others" element = {<Others/>}></Route>}
-          {hasPermission(100701)&&<Route path= "resource/role" element = {<Role/>}></Route>}
-          {hasPermission(100702)&&<Route path= "resource/permission" element = {<Permission/>}></Route>}
-          {hasPermission(100703)&&<Route path= "resource/user" element = {<UserManage/>}></Route>}
 
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes >
+        <Route path='/' element={<App />} />
+        <Route path='/user/login' element={<Login />} />
+        {/* <Route path = '/user/regist' element = {<Regist/>} /> */}
+        <Route element={<PrivateRoute />}>
+          <Route path='/layout' element={<Layout />}>
+            <Route index element={<Home></Home>}></Route>
+            <Route path='markdown' element={<AuthRoute pid="1001">
+              <Markdown />
+            </AuthRoute>}></Route>
+            <Route path='addArt' element={<AuthRoute pid="100101">
+              <AddArt />
+            </AuthRoute>}></Route>
+            <Route path='about' element={<AuthRoute pid="1002">
+              <About />
+            </AuthRoute>}></Route>
+            <Route path='message' element={<AuthRoute pid="1003">
+              <Message />
+            </AuthRoute>}></Route>
+            <Route path='gollery' element={<AuthRoute pid="1004">
+              <Gollery />
+            </AuthRoute>}></Route>
+            <Route path='addGollery' element={<AuthRoute pid="100404">
+              <AddGollery />
+            </AuthRoute>}></Route>
+            <Route path='echarts/chinaMap' element={<AuthRoute pid="1005">
+              <ChinaMap />
+            </AuthRoute>}></Route>
+            <Route path='others' element={<AuthRoute pid="1006">
+              <Others />
+            </AuthRoute>}></Route>
+            <Route path='resource/role' element={<AuthRoute pid="100701">
+              <Role />
+            </AuthRoute>}></Route>
+            <Route path='resource/permission' element={<AuthRoute pid="100702">
+              <Permission />
+            </AuthRoute>}></Route>
+            <Route path='resource/user' element={<AuthRoute pid="100703">
+              <UserManage />
+            </AuthRoute>}></Route>
+
+
+          </Route>
         </Route>
-       </Route>
-       <Route path='*' element={<NotFund />}></Route>
-       
-     </Routes>
+        <Route path='*' element={<NotFund />}></Route>
+
+      </Routes>
     </BrowserRouter>
-    </Provider>
-  
+  </Provider>
+
 )
 
 reportWebVitals()

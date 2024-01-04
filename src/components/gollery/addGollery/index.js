@@ -9,10 +9,11 @@ import {
   updateGollery,
   delGollery,
 } from "../../../request/gollery";
-import { hasPermission } from "../../../utils/hooks";
+import usePermission from "../../../utils/hooks";
 const { TextArea } = Input;
 const AddGollery = (props) => {
   const navigate = useNavigate();
+  const { hasPermission } = usePermission()
   const [search, setsearch] = useSearchParams();
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");

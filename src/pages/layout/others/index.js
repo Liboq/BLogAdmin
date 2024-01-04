@@ -3,8 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { getAllSwiper, updateSwiper } from "../../../request/swiper";
 import Style from "./index.module.less";
 import { CloseOutlined } from "@ant-design/icons";
-import { hasPermission } from "../../../utils/hooks";
+import usePermission from "../../../utils/hooks";
 const Others = () => {
+  const { hasPermission } = usePermission()
   const draggableView = useRef(); // 拖拽图像
   const [draggableData, setDraggableData] = useState(1); // 拖拽项的数据
   const [data, setData] = useState([]);
@@ -102,7 +103,7 @@ const Others = () => {
   };
 
   const handleDrop = async (e, id) => {
-    if(!hasPermission(100603)){
+    if (!hasPermission(100603)) {
       message.warn('您没有权限')
       return
     }
@@ -141,7 +142,7 @@ const Others = () => {
   };
 
   const handleDropS = async (e, id) => {
-    if(!hasPermission(100603)){
+    if (!hasPermission(100603)) {
       message.warn('您没有权限')
       return
     }
@@ -212,11 +213,12 @@ const Others = () => {
             className={Style["form-input"]}
           ></Input>
           <Button onClick={() => {
-            if(!hasPermission(100602)){
+            if (!hasPermission(100602)) {
               message.warn('您没有权限')
               return
             }
-            saveData()}} type="primary">
+            saveData()
+          }} type="primary">
             保存
           </Button>
         </div>

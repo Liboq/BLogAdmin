@@ -17,49 +17,49 @@ const UserManage = () => {
   }, []);
   return (
     <>
-      <DataTable getAllUsers={getAllUsers}  data={data}></DataTable>
+      <DataTable getAllUsers={getAllUsers} data={data}></DataTable>
     </>
   );
 };
 const Dialog = (props) => {
-  const [selectedPermission,setSelectedPermission] = useState([])
-  const [roleList,setRoleList] =useState([])
-  const getRoleList = async ()=>{
+  const [selectedPermission, setSelectedPermission] = useState([])
+  const [roleList, setRoleList] = useState([])
+  const getRoleList = async () => {
     const res = await getRoles()
-    const initRoleList = res.data.map(item=>({
-      value:item.name,
-      label:item.name
+    const initRoleList = res.data.map(item => ({
+      value: item.name,
+      label: item.name
     }))
     setRoleList(initRoleList)
   }
-  const initPermission = props.selectRow.role.map(item=>{
+  const initPermission = props.selectRow.role.map(item => {
     return {
-      value:item,
-      label:item
+      value: item,
+      label: item
     }
   })
-  const handleChange = (value)=>{
+  const handleChange = (value) => {
     setSelectedPermission(value)
   }
-  const updateUserRoles = async() => {
-    
+  const updateUserRoles = async () => {
+
     const params = {
-      _id:props.selectRow._id,
-      role:selectedPermission
+      _id: props.selectRow._id,
+      role: selectedPermission
     }
     const res = await updateUserRole(params)
-    if(res.status === 200){
+    if (res.status === 200) {
       message.success(res.message)
       props.setModal2Open(false)
       props.getAllUsers()
-    }else{
+    } else {
       message.error(res.message)
     }
 
   };
-  useEffect(()=>{
+  useEffect(() => {
     getRoleList()
-  },[])
+  }, [])
   return (
     <>
       <Modal
@@ -123,7 +123,7 @@ const DataTable = (props) => {
     setModal2Open(true);
   };
   const [modal2Open, setModal2Open] = useState(false);
-  const [selectRow,setSelectRow] = useState({})
+  const [selectRow, setSelectRow] = useState({})
   const columns = [
     {
       title: "昵称",
@@ -169,7 +169,7 @@ const DataTable = (props) => {
         columns={columns}
         dataSource={props.data}
       />
-      {modal2Open&&<Dialog getAllUsers={props.getAllUsers} selectRow={selectRow} modal2Open={modal2Open} setModal2Open={setModal2Open}></Dialog>}
+      {modal2Open && <Dialog getAllUsers={props.getAllUsers} selectRow={selectRow} modal2Open={modal2Open} setModal2Open={setModal2Open}></Dialog>}
     </>
   );
 };
