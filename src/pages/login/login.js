@@ -1,23 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import http from "../../utils/request";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import "./login.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import {useSelector,useDispatch} from 'react-redux'
-import { getUserInfo, getUserToken } from "../../store/actions/user";
+import { useSelector, useDispatch } from 'react-redux'
+import { setUserInfo, setUserToken } from "../../store/actions/user";
 import cookie from 'react-cookies'
 
 
 
 // 显示区
 function Login(props) {
-    const state = useSelector(state=>state)
-    const dispath = useDispatch()
+  const state = useSelector(state => state)
+  const dispath = useDispatch()
   let navigate = useNavigate();
-  
+  useEffect(() => {
+    if (state.User.token) {
+      navigate('/layout')
+    }
+  }, [])
   const login = (value) => {
-    
     let expires = new Date(new Date().getTime() + 60 * 60 * 1000);//15分钟
     const data = {
       userName: value.userName,
@@ -26,13 +29,12 @@ function Login(props) {
     http("post", "/user/login", data).then((res) => {
       if (res.status === 200) {
         message.success(res.message);
-        cookie.save("pikachu-token", res.token,{httpOnly:false,expires});
-        cookie.save("user-info",res.data.id,{httpOnly:false,expires})
-        dispath(getUserToken({token:res.token}))
-        dispath(getUserInfo({userName:value.userName,userId:res.data.id}))
-        localStorage.setItem('userInfo',JSON.stringify({userName:value.userName,role:res.data.role}))
+        cookie.save("pikachu-token", res.token, { httpOnly: false, expires });
+        cookie.save("user-info", res.data.id, { httpOnly: false, expires })
+        dispath(setUserToken({ token: res.token }))
+        dispath(setUserInfo({ userName: value.userName, userId: res.data.id }))
+        localStorage.setItem('userInfo', JSON.stringify({ userName: value.userName, role: res.data.role }))
         navigate("/layout");
-        
       } else {
         message.error(res.message);
       }

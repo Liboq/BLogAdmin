@@ -34,9 +34,9 @@ function PrivateRoute({ children, ...rest }) {
     }
     useEffect(() => {
         getRolelist()
-    }, [])
+    }, [location.pathname])
     if (!token) return <Navigate state={{ from: location }} to="/" />
-    if (token && pathname === 'user/login') return <Navigate state={{ from: location }} to='/layout' />
+    if (token && (pathname === 'user/login' || pathname === "/")) return <Navigate state={{ from: location }} to='/layout' />
     return <Outlet />
 }
 

@@ -4,5 +4,8 @@
 	//打开保存格式化功能(保存代码的时候自动格式化)
 	"editor.formatOnSave": true,
 	//使用 prettier  作为默认格式化程序
-	"editor.defaultFormatter": "esbenp.prettier-vscode"
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[less]": {
+		"editor.defaultFormatter": "vscode.css-language-features"
+	}
 }
